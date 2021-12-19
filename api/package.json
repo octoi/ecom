@@ -1,0 +1,29 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node ./src/app.ts",
+    "dev": "nodemon --config nodemon.json ./src/app.ts",
+    "build": "tsc -p .",
+    "js-start": "node ./dist/app.js",
+    "js-dev": "nodemon ./dist/app.js",
+    "migrate": "prisma migrate dev --name migration"
+  },
+  "author": "fadhilsaheer",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "nodemon": "^2.0.15",
+    "prisma": "^3.6.0",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.6.0",
+    "apollo-server": "^3.5.0",
+    "bcrypt": "^5.0.1",
+    "graphql": "^16.1.0"
+  }
+}
