@@ -61,7 +61,7 @@ export const findUser = ({
   userId?: number;
 }) => {
   return new Promise((resolve, reject) => {
-    if (!email || !userId) return;
+    if (!(email || userId)) return; // quit function if `email` or `userId` is not provided
 
     let whereData = email ? { email } : { id: userId }; // if email exist find with `email` else find with `id`
 

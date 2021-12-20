@@ -1,9 +1,16 @@
 import { GraphQLFieldConfig, GraphQLString } from 'graphql';
-import { registerController } from '../../controllers/user.controller';
-import { RegisterRequestArgs } from '../../types/request';
+import { LoginRequestArgs, RegisterRequestArgs } from '../../types/request';
 import { GraphQLUserType } from '../typeDefs/user.typeDef';
-import { validateRegisterArgs } from '../validators/user.validator';
+import {
+  loginController,
+  registerController,
+} from '../../controllers/user.controller';
+import {
+  validateLoginArgs,
+  validateRegisterArgs,
+} from '../validators/user.validator';
 
+// Register mutation
 export const REGISTER: GraphQLFieldConfig<any, any, any> = {
   type: GraphQLUserType,
   args: {
@@ -15,5 +22,18 @@ export const REGISTER: GraphQLFieldConfig<any, any, any> = {
   async resolve(parent: any, requestArgs: any) {
     const args: RegisterRequestArgs = validateRegisterArgs(requestArgs);
     return registerController(args);
+  },
+};
+
+// Login mutation
+export const LOGIN: GraphQLFieldConfig<any, any, any> = {
+  type: GraphQLUserType,
+  args: {
+    email: { type: GraphQLString },
+    password: { type: GraphQLString },
+  },
+  async resolve(parent: any, requestArgs: any) {
+    const args: LoginRequestArgs = validateLoginArgs(requestArgs);
+    return loginController(args);
   },
 };
