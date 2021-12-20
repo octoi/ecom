@@ -1,15 +1,10 @@
-import { GraphQLFieldConfig, GraphQLObjectType, GraphQLString } from 'graphql';
+import { GraphQLObjectType } from 'graphql';
+import { LOGIN, REGISTER } from './user.mutation';
 
 export const Mutations = new GraphQLObjectType({
   name: 'Mutations',
   fields: () => ({
-    hello,
+    register: REGISTER,
+    login: LOGIN,
   }),
 });
-
-let hello: GraphQLFieldConfig<any, any, any> = {
-  type: GraphQLString,
-  resolve() {
-    return 'hello';
-  },
-};
