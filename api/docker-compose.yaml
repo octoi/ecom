@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    networks:
+      - webnet
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: ecom
+  web:
+    image: ecom
+    ports:
+      - '5000:5000'
+    networks:
+      - webnet
+    environment:
+      DATABASE_URL: postgresql://postgres:password@db:5432/ecom?schema=public
+      REDIS_HOST: redis
+    command: ['./wait-for-it.sh', 'db:5432', '--', './start-script.sh']
+networks:
+  webnet:
