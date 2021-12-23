@@ -11,9 +11,7 @@ export interface LoginRequestArgs {
 }
 
 // * all fields starts with `new` will have default data of user if he didn't update any of fields
-export interface UpdateRequestArgs {
-  userId: number;
-  userOldEmail: string;
+export interface UpdateUserRequestArgs {
   newName: string;
   newEmail: string;
   newProfile: string;
