@@ -1,6 +1,10 @@
 import bcrypt from 'bcrypt';
 import { prismaClient } from './prisma';
-import { RegisterRequestArgs, LoginRequestArgs } from '../types/request';
+import {
+  RegisterRequestArgs,
+  LoginRequestArgs,
+  UpdateUserRequestArgs,
+} from '../types/request';
 
 /*
   Usage: register user
@@ -50,6 +54,49 @@ export const loginUser = (data: LoginRequestArgs) => {
 };
 
 /*
+  Usage: update user
+  Implementation: finding user with original email & update the changed value
+*/
+export const updateUser = (
+  data: UpdateUserRequestArgs,
+  loggedInUser: { id: number }
+) => {
+  return new Promise(async (resolve, reject) => {
+    const user: any = await findUser({ userId: loggedInUser.id }).catch(reject);
+    if (!user) return;
+
+    // hashing password if user had change the password
+    if (data.newPassword) {
+      data.newPassword = await bcrypt.hash(data.newPassword, 10);
+    }
+
+    // if data.fieldName is empty default value in database is set instead of null
+    let newUserData: {
+      name: string;
+      email: string;
+      profile: string;
+      password: string;
+    } = {
+      name: data.newName || user?.name,
+      email: data.newEmail || user?.email,
+      profile: data.newProfile || user?.profile,
+      password: data.newPassword || user?.password,
+    };
+
+    prismaClient.user
+      .update({
+        where: { id: loggedInUser.id },
+        data: newUserData,
+      })
+      .then(resolve)
+      .catch((err) => {
+        console.log(err);
+        reject('Failed to update user');
+      });
+  });
+};
+
+/*
   Usage: find user
   Implementation: find user with `email` or `userId`
 */
@@ -61,7 +108,7 @@ export const findUser = ({
   userId?: number;
 }) => {
   return new Promise((resolve, reject) => {
-    if (!(email || userId)) return; // quit function if `email` or `userId` is not provided
+    if (!(email || userId)) reject('Email or user id is not provided'); // quit function if `email` or `userId` is not provided
 
     let whereData = email ? { email } : { id: userId }; // if email exist find with `email` else find with `id`
 
