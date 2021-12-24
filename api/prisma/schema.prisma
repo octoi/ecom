@@ -20,10 +20,10 @@ model User {
 }
 
 model Product {
-  id          String @id @default(uuid())
+  id          String   @id @default(uuid())
   title       String
   description String
-  image       String
-  owner       User   @relation(fields: [ownerId], references: [id])
+  images      String[]
+  owner       User     @relation(fields: [ownerId], references: [id])
   ownerId     Int
 }
