@@ -1,3 +1,4 @@
+// User types
 export interface RegisterRequestArgs {
   name: string;
   email: string;
@@ -16,4 +17,11 @@ export interface UpdateUserRequestArgs {
   newEmail: string;
   newProfile: string;
   newPassword: string;
+}
+
+// Product types
+export interface NewProductRequestArgs {
+  title: string;
+  description: string;
+  images: string[];
 }

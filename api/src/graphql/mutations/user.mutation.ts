@@ -1,4 +1,4 @@
-import { GraphQLFieldConfig, GraphQLString } from 'graphql';
+import { GraphQLString } from 'graphql';
 import {
   LoginRequestArgs,
   RegisterRequestArgs,
@@ -19,9 +19,10 @@ import {
 } from '../validators/user.validator';
 import { ExpressContext } from 'apollo-server-express';
 import { getUserFromContext } from '../../utils/jwt';
+import { GraphQLDefaultFieldConfig } from '../typeDefs/general.typeDef';
 
 // Register mutation
-export const REGISTER: GraphQLFieldConfig<any, any, any> = {
+export const REGISTER: GraphQLDefaultFieldConfig = {
   type: GraphQLUserType,
   args: {
     name: { type: GraphQLString },
@@ -36,7 +37,7 @@ export const REGISTER: GraphQLFieldConfig<any, any, any> = {
 };
 
 // Login mutation
-export const LOGIN: GraphQLFieldConfig<any, any, any> = {
+export const LOGIN: GraphQLDefaultFieldConfig = {
   type: GraphQLUserType,
   args: {
     email: { type: GraphQLString },
@@ -49,7 +50,7 @@ export const LOGIN: GraphQLFieldConfig<any, any, any> = {
 };
 
 // Update mutation
-export const UPDATE_USER: GraphQLFieldConfig<any, any, any> = {
+export const UPDATE_USER: GraphQLDefaultFieldConfig = {
   type: GraphQLUserType,
   args: GraphQLUpdateUserArgsType,
   async resolve(parent: any, requestArgs: any, context: ExpressContext) {
