@@ -16,9 +16,19 @@ export const GraphQLProductType = new GraphQLObjectType({
   }),
 });
 
+export const GraphQlProductListType = new GraphQLList(GraphQLProductType);
+
 export const GraphQLNewProductArgsType: GraphQLFieldConfigArgumentMap = {
   title: { type: GraphQLString },
   description: { type: GraphQLString },
   price: { type: GraphQLInt },
   images: { type: new GraphQLList(GraphQLString) },
+};
+
+export const GraphQLGetAllProductsArgsType: GraphQLFieldConfigArgumentMap = {
+  page: { type: GraphQLInt },
+};
+
+export const GraphQLGetOneProductArgsType: GraphQLFieldConfigArgumentMap = {
+  productId: { type: GraphQLString },
 };

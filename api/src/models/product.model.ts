@@ -63,3 +63,28 @@ export const getAllProducts = (page: number) => {
       .catch(reject);
   });
 };
+
+/*
+  Usage: get one product
+  Implementation: querying database to get one product with product id
+*/
+export const getOneProduct = (productId: string) => {
+  return new Promise((resolve, reject) => {
+    prismaClient.product
+      .findUnique({
+        where: { id: productId },
+        include: {
+          owner: {
+            select: {
+              id: true,
+              email: true,
+              name: true,
+              profile: true,
+            },
+          },
+        },
+      })
+      .then(resolve)
+      .catch(reject);
+  });
+};
