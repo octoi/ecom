@@ -84,7 +84,38 @@ export const getOneProduct = (productId: string) => {
           },
         },
       })
-      .then(resolve)
+      .then((data) => {
+        if (!data) {
+          reject(`Failed to find product with id ${productId}`);
+        }
+        resolve(data);
+      })
+      .catch(() => {
+        reject('Failed to get product details');
+      });
+  });
+};
+
+/*
+  Usage: delete product
+  Implementation: 
+    1. get product details
+    2. check if product belongs to logged in user
+    3. delete product
+*/
+export const deleteProduct = (productId: string, userId: number) => {
+  return new Promise(async (resolve, reject) => {
+    const product: any = await getOneProduct(productId).catch(reject);
+    let productOwnerUserId = product?.ownerId;
+
+    if (productOwnerUserId !== userId) {
+      reject('Permission denied');
+      return;
+    }
+
+    prismaClient.product
+      .delete({ where: { id: productId } })
+      .then(() => resolve('Product deleted successfully'))
       .catch(reject);
   });
 };

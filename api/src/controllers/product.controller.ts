@@ -1,6 +1,7 @@
 import { UserInputError } from 'apollo-server';
 import { NewProductRequestArgs } from '../types/request';
 import {
+  deleteProduct,
   getAllProducts,
   getOneProduct,
   newProduct,
@@ -34,4 +35,16 @@ export const getOneProductController = async (productId: string) => {
   });
 
   return product;
+};
+
+// takes productId, userId and delete product accordingly
+export const deleteProductController = async (
+  productId: string,
+  userId: number
+) => {
+  const message: any = await deleteProduct(productId, userId).catch((err) => {
+    throw new UserInputError(err);
+  });
+
+  return message;
 };

@@ -1,12 +1,12 @@
 import { GraphQLDefaultFieldConfig } from '../typeDefs/general.typeDef';
-import { validateGetOneProductArgs } from '../validators/product.validator';
+import { validateProductIdArgs } from '../validators/product.validator';
 import {
   getAllProductsController,
   getOneProductController,
 } from '../../controllers/product.controller';
 import {
   GraphQLGetAllProductsArgsType,
-  GraphQLGetOneProductArgsType,
+  GraphQLProductIdArgs,
   GraphQlProductListType,
   GraphQLProductType,
 } from '../typeDefs/product.typeDef';
@@ -24,9 +24,9 @@ export const GET_ALL_PRODUCTS: GraphQLDefaultFieldConfig = {
 // Get One Product query
 export const GET_ONE_PRODUCT: GraphQLDefaultFieldConfig = {
   type: GraphQLProductType,
-  args: GraphQLGetOneProductArgsType,
+  args: GraphQLProductIdArgs,
   async resolve(pareny: any, requestArgs: any) {
-    const args = validateGetOneProductArgs(requestArgs);
+    const args = validateProductIdArgs(requestArgs);
     return await getOneProductController(args?.productId);
   },
 };
