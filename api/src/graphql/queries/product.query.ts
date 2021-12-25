@@ -1,3 +1,4 @@
+import { GraphQLString } from 'graphql';
 import { GraphQLDefaultFieldConfig } from '../typeDefs/general.typeDef';
 import { validateProductIdArgs } from '../validators/product.validator';
 import { validateContainingEmailArgs } from '../validators/user.validator';
@@ -5,6 +6,7 @@ import {
   getAllProductsController,
   getAllUserProducts,
   getOneProductController,
+  searchProductController,
 } from '../../controllers/product.controller';
 import {
   GraphQLGetAllProductsArgsType,
@@ -42,5 +44,16 @@ export const GET_ALL_USER_PRODUCTS: GraphQLDefaultFieldConfig = {
     let page: number = requestArgs.page ? requestArgs.page : 0;
     let args = validateContainingEmailArgs(requestArgs);
     return await getAllUserProducts(page, args.email);
+  },
+};
+
+// Search Product query
+export const SEARCH_PRODUCT: GraphQLDefaultFieldConfig = {
+  type: GraphQlProductListType,
+  args: {
+    query: { type: GraphQLString },
+  },
+  async resolve(parent: any, requestArgs: any) {
+    return await searchProductController(requestArgs?.query || '');
   },
 };
