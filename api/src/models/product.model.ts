@@ -34,7 +34,7 @@ export const newProduct = (data: NewProductRequestArgs, userId: number) => {
   Implementation: getting products according to `createdAt` field in table
                   if page is available, return data for that page (pagination)
 */
-export const getAllProducts = (page: number) => {
+export const getAllProducts = (page: number, whereData?: any) => {
   return new Promise((resolve, reject) => {
     const howManyToTake = page ? 20 : undefined; // each page will contain 20 products
     const howManyToSkip = page ? (page - 1) * 20 : undefined; // skipping products according to page
@@ -46,6 +46,7 @@ export const getAllProducts = (page: number) => {
             createdAt: 'desc',
           },
         ],
+        where: whereData,
         take: howManyToTake,
         skip: howManyToSkip,
         include: {
