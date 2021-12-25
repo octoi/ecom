@@ -24,4 +24,5 @@ export interface NewProductRequestArgs {
   title: string;
   description: string;
   images: string[];
+  price: number;
 }
