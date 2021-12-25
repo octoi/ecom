@@ -1,5 +1,10 @@
 import { UserInputError } from 'apollo-server';
-import { loginUser, registerUser, updateUser } from '../models/user.model';
+import {
+  findUser,
+  loginUser,
+  registerUser,
+  updateUser,
+} from '../models/user.model';
 import {
   LoginRequestArgs,
   RegisterRequestArgs,
@@ -44,4 +49,13 @@ export const updateUserController = async (
     ...user,
     token: generateToken(user),
   };
+};
+
+// Takes user email and return user data
+export const getUserDetailsController = async (email: string) => {
+  const user: any = await findUser({ email }).catch((err) => {
+    throw new UserInputError(err);
+  });
+
+  return user;
 };

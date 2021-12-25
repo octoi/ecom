@@ -18,3 +18,13 @@ export const validateLoginArgs = (args: LoginRequestArgs): LoginRequestArgs => {
 
   return args;
 };
+
+export const validateContainingEmailArgs = (args: {
+  email: string;
+}): { email: string } => {
+  if (!args.email) {
+    throw new UserInputError('required fields not found');
+  }
+
+  return args;
+};

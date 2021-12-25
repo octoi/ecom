@@ -28,7 +28,7 @@ export const getAllProductsController = async (page: number) => {
   return products;
 };
 
-// takes product id and return corresponding product
+// Takes product id and return corresponding product
 export const getOneProductController = async (productId: string) => {
   const product: any = await getOneProduct(productId).catch((err) => {
     throw new UserInputError(err);
@@ -37,7 +37,7 @@ export const getOneProductController = async (productId: string) => {
   return product;
 };
 
-// takes productId, userId and delete product accordingly
+// Takes productId, userId and delete product accordingly
 export const deleteProductController = async (
   productId: string,
   userId: number
@@ -47,4 +47,15 @@ export const deleteProductController = async (
   });
 
   return message;
+};
+
+// Takes user email and return all products belong to that user
+export const getAllUserProducts = async (page: number, email: string) => {
+  let whereData = { owner: { email } };
+
+  const products: any = await getAllProducts(page, whereData).catch((err) => {
+    throw new UserInputError(err);
+  });
+
+  return products;
 };

@@ -29,6 +29,12 @@ export const GraphQLGetAllProductsArgsType: GraphQLFieldConfigArgumentMap = {
   page: { type: GraphQLInt },
 };
 
+export const GraphQLGetAllUserProductsArgsType: GraphQLFieldConfigArgumentMap =
+  {
+    page: { type: GraphQLInt },
+    email: { type: GraphQLString },
+  };
+
 export const GraphQLProductIdArgs: GraphQLFieldConfigArgumentMap = {
   productId: { type: GraphQLString },
 };
