@@ -57,12 +57,9 @@ export const loginUser = (data: LoginRequestArgs) => {
   Usage: update user
   Implementation: finding user with original email & update the changed value
 */
-export const updateUser = (
-  data: UpdateUserRequestArgs,
-  loggedInUser: { id: number }
-) => {
+export const updateUser = (data: UpdateUserRequestArgs, userId: number) => {
   return new Promise(async (resolve, reject) => {
-    const user: any = await findUser({ userId: loggedInUser.id }).catch(reject);
+    const user: any = await findUser({ userId }).catch(reject);
     if (!user) return;
 
     // hashing password if user had change the password
@@ -85,7 +82,7 @@ export const updateUser = (
 
     prismaClient.user
       .update({
-        where: { id: loggedInUser.id },
+        where: { id: userId },
         data: newUserData,
       })
       .then(resolve)

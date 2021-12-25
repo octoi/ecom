@@ -56,6 +56,6 @@ export const UPDATE_USER: GraphQLDefaultFieldConfig = {
   async resolve(parent: any, requestArgs: any, context: ExpressContext) {
     const args: UpdateUserRequestArgs = requestArgs;
     const user: any = getUserFromContext(context);
-    return updateUserController(args, user);
+    return updateUserController(args, user?.id);
   },
 };
