@@ -6,7 +6,7 @@ const jwtKey = process.env.JWT_KEY || 'n3v3r g0nn4 g1v3 y0u up'; // ! Please don
 
 export const generateToken = (data: any): string => {
   delete data?.password; // Password hash of user is in data btw, so we need to delete it
-  return jwt.sign(data, jwtKey, { expiresIn: '10h' });
+  return jwt.sign(data, jwtKey, { expiresIn: '100h' });
 };
 
 // get user from the context given by apollo, actually getting header, & getting user from it

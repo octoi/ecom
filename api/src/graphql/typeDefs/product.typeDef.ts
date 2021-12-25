@@ -1,5 +1,5 @@
 import { GraphQLFieldConfigArgumentMap, GraphQLObjectType } from 'graphql';
-import { GraphQLID, GraphQLList, GraphQLString } from 'graphql';
+import { GraphQLID, GraphQLList, GraphQLString, GraphQLInt } from 'graphql';
 import { GraphQLUserType } from './user.typeDef';
 
 export const GraphQLProductType = new GraphQLObjectType({
@@ -9,6 +9,7 @@ export const GraphQLProductType = new GraphQLObjectType({
     title: { type: GraphQLString },
     description: { type: GraphQLString },
     images: { type: new GraphQLList(GraphQLString) },
+    createdAt: { type: GraphQLInt },
     ownerId: { type: GraphQLID },
     owner: { type: GraphQLUserType },
   }),

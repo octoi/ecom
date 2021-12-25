@@ -24,6 +24,7 @@ model Product {
   title       String
   description String
   images      String[]
+  createdAt   DateTime @default(now())
   owner       User     @relation(fields: [ownerId], references: [id])
   ownerId     Int
 }
