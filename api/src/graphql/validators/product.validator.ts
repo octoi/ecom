@@ -7,6 +7,7 @@ export const validateNewProductArgs = (
   if (
     !args.title ||
     !args.description ||
+    !args.price ||
     !args.images ||
     args.images.length === 0
   ) {
