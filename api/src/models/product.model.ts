@@ -120,3 +120,42 @@ export const deleteProduct = (productId: string, userId: number) => {
       .catch(reject);
   });
 };
+
+/*
+  Usage: search product
+  Implementation: validate query for all fields in product
+*/
+export const searchProduct = (searchQuery: string) => {
+  return new Promise((resolve, reject) => {
+    let searchQueryAsNumber = isNaN(parseInt(searchQuery))
+      ? 0
+      : parseInt(searchQuery);
+
+    prismaClient.product
+      .findMany({
+        where: {
+          OR: [
+            { title: { contains: searchQuery } },
+            { description: { contains: searchQuery } },
+            { id: { contains: searchQuery } },
+            { price: { equals: searchQueryAsNumber } },
+            { owner: { email: { contains: searchQuery } } },
+            { owner: { name: { contains: searchQuery } } },
+          ],
+        },
+        include: {
+          owner: {
+            select: {
+              id: true,
+              email: true,
+              name: true,
+              profile: true,
+            },
+          },
+        },
+        take: 20,
+      })
+      .then(resolve)
+      .catch(reject);
+  });
+};

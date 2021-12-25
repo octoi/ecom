@@ -5,6 +5,7 @@ import {
   getAllProducts,
   getOneProduct,
   newProduct,
+  searchProduct,
 } from '../models/product.model';
 
 // Takes `NewProductRequestArgs` and `userId`, return product data inside database
@@ -54,6 +55,15 @@ export const getAllUserProducts = async (page: number, email: string) => {
   let whereData = { owner: { email } };
 
   const products: any = await getAllProducts(page, whereData).catch((err) => {
+    throw new UserInputError(err);
+  });
+
+  return products;
+};
+
+// Takes search query, search for product and return it
+export const searchProductController = async (searchQuery: string) => {
+  const products: any = await searchProduct(searchQuery).catch((err) => {
     throw new UserInputError(err);
   });
 
