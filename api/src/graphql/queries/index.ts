@@ -1,15 +1,9 @@
-import { GraphQLFieldConfig, GraphQLObjectType, GraphQLString } from 'graphql';
+import { GraphQLObjectType } from 'graphql';
+import { GET_ALL_PRODUCTS } from './product.query';
 
 export const Queries = new GraphQLObjectType({
   name: 'Queries',
   fields: () => ({
-    hello,
+    getAllProducts: GET_ALL_PRODUCTS,
   }),
 });
-
-let hello: GraphQLFieldConfig<any, any, any> = {
-  type: GraphQLString,
-  resolve() {
-    return 'hello';
-  },
-};
