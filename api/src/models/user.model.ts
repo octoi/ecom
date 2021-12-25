@@ -110,7 +110,16 @@ export const findUser = ({
     let whereData = email ? { email } : { id: userId }; // if email exist find with `email` else find with `id`
 
     prismaClient.user
-      .findUnique({ where: whereData })
+      .findUnique({
+        where: whereData,
+        include: {
+          _count: {
+            select: {
+              products: true,
+            },
+          },
+        },
+      })
       .then((user: any) => {
         if (!user) {
           reject(`Failed to find user with email ${email}`);
