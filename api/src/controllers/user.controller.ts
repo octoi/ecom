@@ -34,9 +34,9 @@ export const loginController = async (args: LoginRequestArgs) => {
 // Takes `UpdateRequestArgs` and return user data with token
 export const updateUserController = async (
   args: UpdateUserRequestArgs,
-  loggedInUser: { id: number }
+  userId: number
 ) => {
-  const user: any = await updateUser(args, loggedInUser).catch((err) => {
+  const user: any = await updateUser(args, userId).catch((err) => {
     throw new UserInputError(err);
   });
 
