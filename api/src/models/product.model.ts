@@ -32,9 +32,13 @@ export const newProduct = (data: NewProductRequestArgs, userId: number) => {
 /*
   Usage: get all products
   Implementation: getting products according to `createdAt` field in table
+                  if page is available, return data for that page (pagination)
 */
-export const getAllProducts = () => {
+export const getAllProducts = (page: number) => {
   return new Promise((resolve, reject) => {
+    const howManyToTake = page ? 20 : undefined; // each page will contain 20 products
+    const howManyToSkip = page ? (page - 1) * 20 : undefined; // skipping products according to page
+
     prismaClient.product
       .findMany({
         orderBy: [
@@ -42,6 +46,8 @@ export const getAllProducts = () => {
             createdAt: 'desc',
           },
         ],
+        take: howManyToTake,
+        skip: howManyToSkip,
         include: {
           owner: {
             select: {
