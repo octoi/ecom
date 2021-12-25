@@ -17,7 +17,7 @@ export const validateNewProductArgs = (
   return args;
 };
 
-export const validateGetOneProductArgs = (args: any): { productId: string } => {
+export const validateProductIdArgs = (args: any): { productId: string } => {
   if (!args.productId) {
     throw new UserInputError('required fields not found');
   }
