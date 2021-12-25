@@ -29,6 +29,6 @@ export const GraphQLGetAllProductsArgsType: GraphQLFieldConfigArgumentMap = {
   page: { type: GraphQLInt },
 };
 
-export const GraphQLGetOneProductArgsType: GraphQLFieldConfigArgumentMap = {
+export const GraphQLProductIdArgs: GraphQLFieldConfigArgumentMap = {
   productId: { type: GraphQLString },
 };
