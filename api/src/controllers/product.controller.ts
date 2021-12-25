@@ -1,5 +1,5 @@
 import { UserInputError } from 'apollo-server';
-import { newProduct } from '../models/product.model';
+import { getAllProducts, newProduct } from '../models/product.model';
 import { NewProductRequestArgs } from '../types/request';
 
 // Takes `NewProductRequestArgs` and `userId`, return product data inside database
@@ -12,4 +12,13 @@ export const newProductController = async (
   });
 
   return product;
+};
+
+// return all products
+export const getAllProductsController = async () => {
+  const products: any = await getAllProducts().catch((err) => {
+    throw new UserInputError(err);
+  });
+
+  return products;
 };
