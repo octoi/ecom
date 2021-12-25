@@ -15,8 +15,8 @@ export const newProductController = async (
 };
 
 // return all products
-export const getAllProductsController = async () => {
-  const products: any = await getAllProducts().catch((err) => {
+export const getAllProductsController = async (page: number) => {
+  const products: any = await getAllProducts(page).catch((err) => {
     throw new UserInputError(err);
   });
 
