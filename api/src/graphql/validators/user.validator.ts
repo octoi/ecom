@@ -19,7 +19,7 @@ export const validateLoginArgs = (args: LoginRequestArgs): LoginRequestArgs => {
   return args;
 };
 
-export const validateGetUserDetailsArgs = (args: {
+export const validateContainingEmailArgs = (args: {
   email: string;
 }): { email: string } => {
   if (!args.email) {
