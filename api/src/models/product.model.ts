@@ -139,6 +139,7 @@ export const searchProduct = (searchQuery: string) => {
             { description: { contains: searchQuery } },
             { id: { contains: searchQuery } },
             { price: { equals: searchQueryAsNumber } },
+            { place: { contains: searchQuery } },
             { owner: { email: { contains: searchQuery } } },
             { owner: { name: { contains: searchQuery } } },
           ],
