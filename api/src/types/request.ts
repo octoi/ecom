@@ -25,4 +25,5 @@ export interface NewProductRequestArgs {
   description: string;
   images: string[];
   price: number;
+  place: string;
 }
