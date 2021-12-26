@@ -23,6 +23,7 @@ model Product {
   id          String   @id @default(uuid())
   title       String
   description String
+  place       String
   images      String[]
   price       Int
   createdAt   DateTime @default(now())

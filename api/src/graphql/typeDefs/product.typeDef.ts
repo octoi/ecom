@@ -10,6 +10,7 @@ export const GraphQLProductType = new GraphQLObjectType({
     description: { type: GraphQLString },
     images: { type: new GraphQLList(GraphQLString) },
     price: { type: GraphQLInt },
+    place: { type: GraphQLString },
     createdAt: { type: GraphQLString },
     ownerId: { type: GraphQLID },
     owner: { type: GraphQLUserType },
@@ -22,6 +23,7 @@ export const GraphQLNewProductArgsType: GraphQLFieldConfigArgumentMap = {
   title: { type: GraphQLString },
   description: { type: GraphQLString },
   price: { type: GraphQLInt },
+  place: { type: GraphQLString },
   images: { type: new GraphQLList(GraphQLString) },
 };
 
