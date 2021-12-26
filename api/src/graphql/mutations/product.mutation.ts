@@ -1,11 +1,11 @@
 import { ExpressContext } from 'apollo-server-express';
 import { GraphQLString } from 'graphql';
+import { getUserFromContext } from '../../utils/jwt';
+import { GraphQLDefaultFieldConfig } from '../typeDefs/general.typeDef';
 import {
   deleteProductController,
   newProductController,
 } from '../../controllers/product.controller';
-import { getUserFromContext } from '../../utils/jwt';
-import { GraphQLDefaultFieldConfig } from '../typeDefs/general.typeDef';
 import {
   validateNewProductArgs,
   validateProductIdArgs,
