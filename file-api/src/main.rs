@@ -7,7 +7,7 @@ use warp::{
     Filter, Rejection, Reply,
 };
 
-static MAX_SIZE: u64 = 100_000_000; // 100 MB
+static MAX_SIZE: u64 = 10_000_000; // 10 MB
 
 #[tokio::main]
 async fn main() {
@@ -22,7 +22,7 @@ async fn main() {
         .with(cors.clone());
 
     let download_route = warp::path("files")
-        .and(warp::fs::dir("../files/"))
+        .and(warp::fs::dir("./files/"))
         .with(cors.clone());
 
     let router = upload_route.or(download_route).recover(handle_rejection);
@@ -49,7 +49,12 @@ async fn upload(form: FormData) -> Result<impl Reply, Rejection> {
                     let file_type_split: Vec<&str> = file_type.split("/").collect();
 
                     if &file_type_split.len() == &2 {
-                        file_extension = file_type_split[1].to_owned();
+                        if file_type_split[0] == "image" {
+                            file_extension = file_type_split[1].to_owned();
+                        } else {
+                            eprintln!("[-] Invalid file type found: {}", file_type);
+                            return Err(warp::reject::reject());
+                        }
                     } else {
                         eprintln!("[-] Invalid file type found: {}", file_type);
                         return Err(warp::reject::reject());
@@ -74,7 +79,7 @@ async fn upload(form: FormData) -> Result<impl Reply, Rejection> {
                 })?;
 
             let file_name = format!("/files/{}.{}", Uuid::new_v4().to_string(), file_extension);
-            let file_path = format!("..{}", file_name);
+            let file_path = format!(".{}", &file_name);
 
             file = file_name.clone();
 
