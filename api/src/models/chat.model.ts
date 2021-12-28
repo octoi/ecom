@@ -1,6 +1,30 @@
 import { prismaClient } from './prisma';
 
 /*
+  Usage: new chat
+  Implementation: adding new chat to `Chat` table
+*/
+export const newChat = (loggedInUserId: number, targetUserId: number) => {
+  return new Promise((resolve, reject) => {
+    prismaClient.chat
+      .create({
+        data: {
+          senderId: loggedInUserId,
+          receiverId: targetUserId,
+        },
+        include: {
+          sender: true,
+          receiver: true,
+        },
+      })
+      .then(resolve)
+      .catch(() => {
+        reject('Failed to create chat');
+      });
+  });
+};
+
+/*
   Usage: get user chats
   Implementation: getting all chats with senderId or receiverId equals to userId
 */
