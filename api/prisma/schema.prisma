@@ -19,6 +19,7 @@ model User {
   products Product[] @relation("products")
   send     Chat[]    @relation("send")
   received Chat[]    @relation("received")
+  Message  Message[]
 }
 
 model Product {
@@ -35,11 +36,20 @@ model Product {
 
 model Chat {
   id              String    @id @default(uuid())
-  messages        Json[]
-  lastMessage     Json?
+  messages        Message[] @relation("chat")
   lastMessageTime DateTime?
   senderId        Int
   receiverId      Int
   sender          User      @relation(name: "send", fields: [senderId], references: [id])
   receiver        User      @relation(name: "received", fields: [receiverId], references: [id])
+}
+
+model Message {
+  id       String   @id @default(uuid())
+  message  String
+  time     DateTime @default(now())
+  chatId   String
+  chat     Chat     @relation(name: "chat", fields: [chatId], references: [id])
+  senderId Int
+  sender   User     @relation(fields: [senderId], references: [id])
 }
