@@ -25,6 +25,25 @@ export const newChat = (loggedInUserId: number, targetUserId: number) => {
 };
 
 /*
+  Usage: new message
+  Implementation: update chat, `messages` field
+*/
+export const newMessage = (data: {
+  message: string;
+  chatId: string;
+  senderId: number;
+}) => {
+  return new Promise((resolve, reject) => {
+    prismaClient.message
+      .create({ data })
+      .then(resolve)
+      .catch(() => {
+        reject('Failed to send message');
+      });
+  });
+};
+
+/*
   Usage: get user chats
   Implementation: getting all chats with senderId or receiverId equals to userId
 */
@@ -66,7 +85,7 @@ export const findChatWithUsersInIt = (
           receiver: true,
         },
       })
-      .then((chat) => {
+      .then((chat: any) => {
         if (!chat) {
           reject('No chat exist');
           return;
@@ -94,7 +113,7 @@ export const findChatWithChatId = (chatId: string) => {
           receiver: true,
         },
       })
-      .then((chat) => {
+      .then((chat: any) => {
         if (!chat) {
           reject(`Failed to find chat with id ${chatId}`);
           return;
