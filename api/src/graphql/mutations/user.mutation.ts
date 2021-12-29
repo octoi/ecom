@@ -17,9 +17,9 @@ import {
   validateLoginArgs,
   validateRegisterArgs,
 } from '../validators/user.validator';
-import { ExpressContext } from 'apollo-server-express';
 import { getUserFromContext } from '../../utils/jwt';
 import { GraphQLDefaultFieldConfig } from '../typeDefs/general.typeDef';
+import { Context } from '../../types/default';
 
 // Register mutation
 export const REGISTER: GraphQLDefaultFieldConfig = {
@@ -53,7 +53,7 @@ export const LOGIN: GraphQLDefaultFieldConfig = {
 export const UPDATE_USER: GraphQLDefaultFieldConfig = {
   type: GraphQLUserType,
   args: GraphQLUpdateUserArgsType,
-  async resolve(parent: any, requestArgs: any, context: ExpressContext) {
+  async resolve(parent: any, requestArgs: any, context: Context) {
     const args: UpdateUserRequestArgs = requestArgs;
     const user: any = getUserFromContext(context);
     return updateUserController(args, user?.id);

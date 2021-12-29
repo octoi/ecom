@@ -1,4 +1,3 @@
-import { ExpressContext } from 'apollo-server-express';
 import { GraphQLList } from 'graphql';
 import { getUserFromContext } from '../../utils/jwt';
 import { GraphQLDefaultFieldConfig } from '../typeDefs/general.typeDef';
@@ -11,10 +10,11 @@ import {
   findChatWithChatIdController,
   getUserChatsController,
 } from '../../controllers/chat.controller';
+import { Context } from '../../types/default';
 
 export const GET_USER_CHATS: GraphQLDefaultFieldConfig = {
   type: new GraphQLList(GraphQlChatType),
-  async resolve(_: any, __: any, context: ExpressContext) {
+  async resolve(_: any, __: any, context: Context) {
     const user: any = getUserFromContext(context);
     return await getUserChatsController(user?.id);
   },

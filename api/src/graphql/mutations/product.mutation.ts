@@ -1,4 +1,3 @@
-import { ExpressContext } from 'apollo-server-express';
 import { GraphQLString } from 'graphql';
 import { getUserFromContext } from '../../utils/jwt';
 import { GraphQLDefaultFieldConfig } from '../typeDefs/general.typeDef';
@@ -15,12 +14,13 @@ import {
   GraphQLProductIdArgs,
   GraphQLProductType,
 } from '../typeDefs/product.typeDef';
+import { Context } from '../../types/default';
 
 // New Product mutation
 export const NEW_PRODUCT: GraphQLDefaultFieldConfig = {
   type: GraphQLProductType,
   args: GraphQLNewProductArgsType,
-  async resolve(parent: any, requestArgs: any, context: ExpressContext) {
+  async resolve(parent: any, requestArgs: any, context: Context) {
     const args = validateNewProductArgs(requestArgs);
     const user: any = getUserFromContext(context);
     return newProductController(args, user?.id);
@@ -31,7 +31,7 @@ export const NEW_PRODUCT: GraphQLDefaultFieldConfig = {
 export const DELETE_PRODUCT: GraphQLDefaultFieldConfig = {
   type: GraphQLString,
   args: GraphQLProductIdArgs,
-  async resolve(parent: any, requestArgs: any, context: ExpressContext) {
+  async resolve(parent: any, requestArgs: any, context: Context) {
     const args = validateProductIdArgs(requestArgs);
     const user: any = getUserFromContext(context);
     return deleteProductController(args.productId, user?.id);
