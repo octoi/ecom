@@ -75,7 +75,13 @@ export const getUserChats = (userId: number) => {
         include: {
           sender: true,
           receiver: true,
+          messages: {
+            orderBy: {
+              time: 'desc',
+            },
+          },
         },
+        orderBy: [{ messages: { _count: 'desc' } }],
       })
       .then(resolve)
       .catch(() => {
@@ -104,8 +110,13 @@ export const findChatWithUsersInIt = (
         include: {
           sender: true,
           receiver: true,
-          messages: true,
+          messages: {
+            orderBy: {
+              time: 'desc',
+            },
+          },
         },
+        orderBy: [{ messages: { _count: 'desc' } }],
       })
       .then((chat: any) => {
         if (!chat) {
@@ -133,7 +144,11 @@ export const findChatWithChatId = (chatId: string) => {
         include: {
           sender: true,
           receiver: true,
-          messages: true,
+          messages: {
+            orderBy: {
+              time: 'desc',
+            },
+          },
         },
       })
       .then((chat: any) => {
