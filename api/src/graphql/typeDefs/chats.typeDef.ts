@@ -33,6 +33,6 @@ export const GraphQLNewMessageArgs: GraphQLFieldConfigArgumentMap = {
   chatId: { type: GraphQLString },
 };
 
-export const GraphQLGetChatArgs: GraphQLFieldConfigArgumentMap = {
+export const GraphQLArgsWithChatId: GraphQLFieldConfigArgumentMap = {
   chatId: { type: GraphQLString },
 };

@@ -1,9 +1,12 @@
 import { ExpressContext } from 'apollo-server-express';
 import { GraphQLList } from 'graphql';
 import { getUserFromContext } from '../../utils/jwt';
-import { GraphQlChatType, GraphQLGetChatArgs } from '../typeDefs/chats.typeDef';
 import { GraphQLDefaultFieldConfig } from '../typeDefs/general.typeDef';
-import { validateGetChatArgs } from '../validators/chat.validator';
+import { validateArgsWithChatId } from '../validators/chat.validator';
+import {
+  GraphQlChatType,
+  GraphQLArgsWithChatId,
+} from '../typeDefs/chats.typeDef';
 import {
   findChatWithChatIdController,
   getUserChatsController,
@@ -19,9 +22,9 @@ export const GET_USER_CHATS: GraphQLDefaultFieldConfig = {
 
 export const GET_CHAT: GraphQLDefaultFieldConfig = {
   type: GraphQlChatType,
-  args: GraphQLGetChatArgs,
+  args: GraphQLArgsWithChatId,
   async resolve(_: any, requestArgs: any) {
-    const args = validateGetChatArgs(requestArgs);
+    const args = validateArgsWithChatId(requestArgs);
     return await findChatWithChatIdController(args.chatId);
   },
 };
