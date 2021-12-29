@@ -21,25 +21,29 @@ export const newMessage = (data: {
 
 /*
   Usage: new chat
-  Implementation: adding new chat to `Chat` table
+  Implementation: checking if a chat exist between users, if not create one
 */
 export const newChat = (loggedInUserId: number, targetUserId: number) => {
-  return new Promise((resolve, reject) => {
-    prismaClient.chat
-      .create({
-        data: {
-          senderId: loggedInUserId,
-          receiverId: targetUserId,
-        },
-        include: {
-          sender: true,
-          receiver: true,
-          messages: true,
-        },
-      })
+  return new Promise(async (resolve, reject) => {
+    findChatWithUsersInIt(loggedInUserId, targetUserId)
       .then(resolve)
       .catch(() => {
-        reject('Failed to create chat');
+        prismaClient.chat
+          .create({
+            data: {
+              senderId: loggedInUserId,
+              receiverId: targetUserId,
+            },
+            include: {
+              sender: true,
+              receiver: true,
+              messages: true,
+            },
+          })
+          .then(resolve)
+          .catch(() => {
+            reject('Failed to create chat');
+          });
       });
   });
 };
@@ -48,7 +52,7 @@ export const newChat = (loggedInUserId: number, targetUserId: number) => {
   Usage: new message
   Implementation: update chat, `messages` field
 */
-export const deleteChat = (chatId: string) => {
+export const deleteChat = (chatId: string): Promise<String> => {
   return new Promise((resolve, reject) => {
     prismaClient.chat
       .delete({ where: { id: chatId } })
@@ -68,7 +72,6 @@ export const getUserChats = (userId: number) => {
         where: {
           OR: [{ senderId: userId }, { receiverId: userId }],
         },
-        orderBy: [{ lastMessageTime: 'desc' }],
         include: {
           sender: true,
           receiver: true,
