@@ -52,12 +52,25 @@ export const newChat = (loggedInUserId: number, targetUserId: number) => {
   Usage: new message
   Implementation: update chat, `messages` field
 */
-export const deleteChat = (chatId: string): Promise<String> => {
+export const deleteChat = (chatId: string, userId: number): Promise<String> => {
   return new Promise((resolve, reject) => {
-    prismaClient.chat
-      .delete({ where: { id: chatId } })
-      .then(() => resolve(`${chatId} deleted successfully`))
-      .catch(() => reject(`Failed to delete chat ${chatId}`));
+    findChatWithChatId(chatId)
+      .then((chat: any) => {
+        if (chat.senderId === userId || chat.receiverId === userId) {
+          prismaClient.message
+            .deleteMany({ where: { chatId } })
+            .then(() => {
+              prismaClient.chat
+                .delete({ where: { id: chatId } })
+                .then(() => resolve(`${chatId} deleted successfully`))
+                .catch(() => reject(`Failed to delete chat ${chatId}`));
+            })
+            .catch(() => reject(`Failed to delete chat ${chatId}`));
+        } else {
+          reject('Permission denied');
+        }
+      })
+      .catch(reject);
   });
 };
 
@@ -75,11 +88,7 @@ export const getUserChats = (userId: number) => {
         include: {
           sender: true,
           receiver: true,
-          messages: {
-            orderBy: {
-              time: 'desc',
-            },
-          },
+          messages: true,
         },
         orderBy: [{ messages: { _count: 'desc' } }],
       })
@@ -110,11 +119,7 @@ export const findChatWithUsersInIt = (
         include: {
           sender: true,
           receiver: true,
-          messages: {
-            orderBy: {
-              time: 'desc',
-            },
-          },
+          messages: true,
         },
         orderBy: [{ messages: { _count: 'desc' } }],
       })
@@ -144,11 +149,7 @@ export const findChatWithChatId = (chatId: string) => {
         include: {
           sender: true,
           receiver: true,
-          messages: {
-            orderBy: {
-              time: 'desc',
-            },
-          },
+          messages: true,
         },
       })
       .then((chat: any) => {

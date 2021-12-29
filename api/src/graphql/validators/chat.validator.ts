@@ -19,7 +19,7 @@ export const validateNewMessageArgs = (args: {
   return args;
 };
 
-export const validateGetChatArgs = (args: { chatId: string }) => {
+export const validateArgsWithChatId = (args: { chatId: string }) => {
   if (!args.chatId) {
     throw new UserInputError('required fields not found');
   }

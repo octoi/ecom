@@ -41,8 +41,8 @@ export const newChatController = async (
   return chat;
 };
 
-export const deleteChatController = async (chatId: string) => {
-  const msg = await deleteChat(chatId).catch((err) => {
+export const deleteChatController = async (chatId: string, userId: number) => {
+  const msg = await deleteChat(chatId, userId).catch((err) => {
     throw new UserInputError(err);
   });
 
