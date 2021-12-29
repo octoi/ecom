@@ -2,6 +2,7 @@ import { GraphQLString } from 'graphql';
 import { Context } from '../../types/default';
 import { getUserFromContext } from '../../utils/jwt';
 import { GraphQLDefaultFieldConfig } from '../typeDefs/general.typeDef';
+import { pubsub } from '../../types/pubsub';
 import {
   deleteChatController,
   newChatController,
@@ -37,7 +38,18 @@ export const NEW_MESSAGE: GraphQLDefaultFieldConfig = {
     const args = validateNewMessageArgs(requestArgs);
     const user: any = getUserFromContext(context);
 
-    return await newMessageController(args.message, args.chatId, user?.id);
+    const newMessage = await newMessageController(
+      args.message,
+      args.chatId,
+      user?.id
+    );
+
+    pubsub.publish(`NEW_MESSAGE_${args.chatId}`, {
+      newMessage,
+      message: newMessage,
+    });
+
+    return newMessage;
   },
 };
 
