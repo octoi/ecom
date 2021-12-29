@@ -35,13 +35,12 @@ model Product {
 }
 
 model Chat {
-  id              String    @id @default(uuid())
-  messages        Message[] @relation("chat")
-  lastMessageTime DateTime?
-  senderId        Int
-  receiverId      Int
-  sender          User      @relation(name: "send", fields: [senderId], references: [id])
-  receiver        User      @relation(name: "received", fields: [receiverId], references: [id])
+  id         String    @id @default(uuid())
+  messages   Message[] @relation("chat")
+  senderId   Int
+  receiverId Int
+  sender     User      @relation(name: "send", fields: [senderId], references: [id])
+  receiver   User      @relation(name: "received", fields: [receiverId], references: [id])
 }
 
 model Message {
