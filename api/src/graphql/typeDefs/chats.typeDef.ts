@@ -32,3 +32,7 @@ export const GraphQLNewMessageArgs: GraphQLFieldConfigArgumentMap = {
   message: { type: GraphQLString },
   chatId: { type: GraphQLString },
 };
+
+export const GraphQLGetChatArgs: GraphQLFieldConfigArgumentMap = {
+  chatId: { type: GraphQLString },
+};

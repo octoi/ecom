@@ -6,7 +6,7 @@ import {
   GET_ONE_PRODUCT,
   SEARCH_PRODUCT,
 } from './product.query';
-import { GET_USER_CHATS } from './chat.query';
+import { GET_CHAT, GET_USER_CHATS } from './chat.query';
 
 export const Queries = new GraphQLObjectType({
   name: 'Queries',
@@ -22,5 +22,6 @@ export const Queries = new GraphQLObjectType({
 
     // CHAT
     getUserChats: GET_USER_CHATS,
+    getChat: GET_CHAT,
   }),
 });

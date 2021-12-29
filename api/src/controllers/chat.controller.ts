@@ -1,6 +1,7 @@
 import { UserInputError } from 'apollo-server';
 import {
   deleteChat,
+  findChatWithChatId,
   findChatWithUsersInIt,
   getUserChats,
   newChat,
@@ -15,6 +16,14 @@ export const findChatWithUsersInItController = async (
     loggedInUserId,
     targetUserId
   ).catch((err) => {
+    throw new UserInputError(err);
+  });
+
+  return chat;
+};
+
+export const findChatWithChatIdController = async (chatId: string) => {
+  const chat = await findChatWithChatId(chatId).catch((err) => {
     throw new UserInputError(err);
   });
 
