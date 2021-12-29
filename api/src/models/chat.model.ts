@@ -156,7 +156,7 @@ export const findChatWithChatId = (chatId: string) => {
           reject(`Failed to find chat with id ${chatId}`);
           return;
         }
-        resolve(chatId);
+        resolve(chat);
       })
       .catch(() => {
         reject(`Failed to find chat with id ${chatId}`);
