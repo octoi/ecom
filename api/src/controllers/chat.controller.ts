@@ -25,7 +25,7 @@ export const newChatController = async (
   loggedInUserId: number,
   targetUserId: number
 ) => {
-  const chat: any = await newChat(loggedInUserId, targetUserId).catch((err) => {
+  const chat = await newChat(loggedInUserId, targetUserId).catch((err) => {
     throw new UserInputError(err);
   });
 
