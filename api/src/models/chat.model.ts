@@ -1,30 +1,6 @@
 import { prismaClient } from './prisma';
 
 /*
-  Usage: new chat
-  Implementation: adding new chat to `Chat` table
-*/
-export const newChat = (loggedInUserId: number, targetUserId: number) => {
-  return new Promise((resolve, reject) => {
-    prismaClient.chat
-      .create({
-        data: {
-          senderId: loggedInUserId,
-          receiverId: targetUserId,
-        },
-        include: {
-          sender: true,
-          receiver: true,
-        },
-      })
-      .then(resolve)
-      .catch(() => {
-        reject('Failed to create chat');
-      });
-  });
-};
-
-/*
   Usage: new message
   Implementation: update chat, `messages` field
 */
@@ -44,6 +20,44 @@ export const newMessage = (data: {
 };
 
 /*
+  Usage: new chat
+  Implementation: adding new chat to `Chat` table
+*/
+export const newChat = (loggedInUserId: number, targetUserId: number) => {
+  return new Promise((resolve, reject) => {
+    prismaClient.chat
+      .create({
+        data: {
+          senderId: loggedInUserId,
+          receiverId: targetUserId,
+        },
+        include: {
+          sender: true,
+          receiver: true,
+          messages: true,
+        },
+      })
+      .then(resolve)
+      .catch(() => {
+        reject('Failed to create chat');
+      });
+  });
+};
+
+/*
+  Usage: new message
+  Implementation: update chat, `messages` field
+*/
+export const deleteChat = (chatId: string) => {
+  return new Promise((resolve, reject) => {
+    prismaClient.chat
+      .delete({ where: { id: chatId } })
+      .then(() => resolve(`${chatId} deleted successfully`))
+      .catch(() => reject(`Failed to delete chat ${chatId}`));
+  });
+};
+
+/*
   Usage: get user chats
   Implementation: getting all chats with senderId or receiverId equals to userId
 */
@@ -55,6 +69,10 @@ export const getUserChats = (userId: number) => {
           OR: [{ senderId: userId }, { receiverId: userId }],
         },
         orderBy: [{ lastMessageTime: 'desc' }],
+        include: {
+          sender: true,
+          receiver: true,
+        },
       })
       .then(resolve)
       .catch(() => {
@@ -83,6 +101,7 @@ export const findChatWithUsersInIt = (
         include: {
           sender: true,
           receiver: true,
+          messages: true,
         },
       })
       .then((chat: any) => {
@@ -111,6 +130,7 @@ export const findChatWithChatId = (chatId: string) => {
         include: {
           sender: true,
           receiver: true,
+          messages: true,
         },
       })
       .then((chat: any) => {
