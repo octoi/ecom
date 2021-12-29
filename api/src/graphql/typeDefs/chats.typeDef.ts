@@ -19,11 +19,16 @@ export const GraphQLChatMessage = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     message: { type: GraphQLString },
-    time: { type: GraphQLInt },
+    time: { type: GraphQLString },
     senderId: { type: GraphQLID },
   }),
 });
 
 export const GraphQlNewChatArgs: GraphQLFieldConfigArgumentMap = {
   targetUserId: { type: GraphQLInt },
+};
+
+export const GraphQLNewMessageArgs: GraphQLFieldConfigArgumentMap = {
+  message: { type: GraphQLString },
+  chatId: { type: GraphQLString },
 };
