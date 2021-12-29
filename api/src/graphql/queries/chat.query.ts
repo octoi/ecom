@@ -9,8 +9,6 @@ export const GET_USER_CHATS: GraphQLDefaultFieldConfig = {
   type: new GraphQLList(GraphQlChatType),
   async resolve(_: any, __: any, context: ExpressContext) {
     const user: any = getUserFromContext(context);
-    const data = await getUserChatsController(user?.id);
-    console.log(data);
-    return data;
+    return await getUserChatsController(user?.id);
   },
 };
