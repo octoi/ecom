@@ -9,7 +9,10 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.6",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
     "@hookstate/core": "^3.0.13",
+    "@mui/material": "^5.2.6",
     "graphql": "^16.2.0",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
