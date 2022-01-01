@@ -43,6 +43,16 @@ export const RegisterForm = () => {
       <button className='w-full mt-3 bg-slate-900 p-3 rounded text-white text-xl transition-all hover:opacity-80'>
         Register
       </button>
+
+      <p className='mt-3 opacity-80'>
+        Already have an account ?{' '}
+        <a
+          href={Paths.login}
+          className='font-medium underline decoration-slate-900'
+        >
+          Login
+        </a>
+      </p>
     </div>
   );
 };
