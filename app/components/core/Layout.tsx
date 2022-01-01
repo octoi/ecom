@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import { AuthChecker } from './AuthChecker';
+import { Header } from '../header/Header';
 
 interface Props {
   title?: string;
@@ -32,8 +33,8 @@ export const Layout: React.FC<Props> = ({
         <meta property='og:image' content={image} />
         <meta property='og:type' content='website' />
       </Head>
+      {!hideDefaultHeader && <Header />}
       <div className='p-5 text-white'>
-        {/* {!hideDefaultHeader && <Header />} */}
         {needMargin && <div className='w-full h-24'></div>}
         <AuthChecker>{children}</AuthChecker>
       </div>
