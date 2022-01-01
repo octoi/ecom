@@ -34,7 +34,7 @@ export const Layout: React.FC<Props> = ({
         <meta property='og:type' content='website' />
       </Head>
       {!hideDefaultHeader && <Header />}
-      <div className='p-5 text-white'>
+      <div className='p-5'>
         {needMargin && <div className='w-full h-24'></div>}
         <AuthChecker>{children}</AuthChecker>
       </div>
