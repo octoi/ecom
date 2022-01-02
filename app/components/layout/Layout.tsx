@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import { Header } from '../header/Header';
 
 interface Props {
   title?: string;
@@ -7,7 +8,12 @@ interface Props {
   description?: string;
 }
 
-export const Layout: React.FC<Props> = ({ title, description, image }) => {
+export const Layout: React.FC<Props> = ({
+  children,
+  title,
+  description,
+  image,
+}) => {
   return (
     <div>
       <Head>
@@ -24,6 +30,8 @@ export const Layout: React.FC<Props> = ({ title, description, image }) => {
         <meta property='og:image' content={image} />
         <meta property='og:type' content='website' />
       </Head>
+      <Header />
+      {children}
     </div>
   );
 };
