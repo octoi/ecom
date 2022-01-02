@@ -22,11 +22,12 @@ export const TextField: React.FC<Props> = ({
   return (
     <StyledTextInputField
       fullWidth
+      type={type}
       label={placeholder}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       required={required}
-      className={`mt-3 ${className}`}
+      className={className}
     />
   );
 };

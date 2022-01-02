@@ -35,7 +35,7 @@ const main = async () => {
   server.applyMiddleware({ app });
 
   const PORT = process.env.PORT || 5000;
-  const URL = `http://localhost:${PORT}/graphq`;
+  const URL = `http://localhost:${PORT}/graphql`;
 
   httpServer.listen(PORT, () => {
     console.log(`🚀  Server ready at ${URL}`);

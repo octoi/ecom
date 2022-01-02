@@ -20,12 +20,14 @@ export const RegisterForm = () => {
       <TextField
         type='email'
         placeholder='email'
+        className='mt-3'
         value={emailState.get()}
         onChange={emailState.set}
       />
       <TextField
         type='password'
         placeholder='password'
+        className='mt-3'
         value={passwordState.get()}
         onChange={passwordState.set}
       />
