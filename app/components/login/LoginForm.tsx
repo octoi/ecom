@@ -35,15 +35,12 @@ export const LoginForm = () => {
   };
 
   return (
-    <form
-      className='bg-slate-50 p-5 w-full md:w-1/2 lg:w-1/3'
-      onSubmit={handleLoginForm}
-    >
-      <h1 className='text-slate-900 font-bold text-2xl'>Login</h1>
+    <form className='p-5 w-full md:w-1/2 lg:w-1/3' onSubmit={handleLoginForm}>
+      <h1 className='text-slate-900 font-bold text-4xl'>Login</h1>
       <TextField
         type='email'
         placeholder='email'
-        className='mt-6'
+        className='mt-8'
         value={emailState.get()}
         onChange={emailState.set}
         required
@@ -57,7 +54,7 @@ export const LoginForm = () => {
       />
       <button
         type='submit'
-        className='w-full mt-2 bg-slate-900 p-3 rounded text-white text-xl transition-all hover:opacity-80'
+        className='w-full mt-8 bg-slate-900 p-3 rounded text-white text-xl transition-all hover:opacity-90'
       >
         Login
       </button>
