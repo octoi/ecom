@@ -1,9 +1,13 @@
 import React from 'react';
-import { Paths } from '@/types/constant.type';
 import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Paths } from '@/types/constant.type';
+import { userStore } from '@/states/user.state';
 import { GuestUserRHS } from './GuestUserRHS';
+import { LoggedInUserRHS } from './LoggedInUserRHS';
 
 export const Header = () => {
+  const user = userStore.get();
+
   return (
     <Navbar bg='light'>
       <Container>
@@ -15,9 +19,7 @@ export const Header = () => {
             <Nav.Link href={Paths.terms}>Terms</Nav.Link>
           </Nav>
         </Navbar.Collapse>
-        <Nav>
-          <GuestUserRHS />
-        </Nav>
+        <Nav>{user ? <LoggedInUserRHS user={user} /> : <GuestUserRHS />}</Nav>
       </Container>
     </Navbar>
   );
