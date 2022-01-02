@@ -5,6 +5,7 @@ import { Paths } from '@/utils/constants';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from './login.mutation';
 import { setUser } from '@/utils/user.util';
+import { CircularProgress } from '@mui/material';
 
 export const LoginForm = () => {
   const router = useRouter();
@@ -25,13 +26,23 @@ export const LoginForm = () => {
         email: emailState.get(),
         password: passwordState.get(),
       },
-    }).then(({ data }) => {
-      const responseData = data?.loginUser;
-      setUser(responseData);
+    })
+      .then(({ data }) => {
+        const responseData = data?.login;
+        console.log(responseData);
+        setUser(responseData);
 
-      router.push(Paths.home);
-      alert(`Welcome back ${responseData?.name} to Ecom`);
-    });
+        router.push(Paths.home);
+        alert(`Welcome back ${responseData?.name} to Ecom`);
+      })
+      .catch((err) => {
+        alert(`Failed to login, ${err.message}`);
+      })
+      .finally(() => {
+        emailState.set('');
+        passwordState.set('');
+        loadingState.set(false);
+      });
   };
 
   return (
@@ -48,15 +59,19 @@ export const LoginForm = () => {
       <TextField
         type='password'
         placeholder='password'
+        className='mt-3'
         value={passwordState.get()}
         onChange={passwordState.set}
         required
       />
       <button
         type='submit'
-        className='w-full mt-8 bg-slate-900 p-3 rounded text-white text-xl transition-all hover:opacity-90'
+        className='w-full mt-8 bg-slate-900 p-3 rounded text-white text-xl transition-all hover:opacity-90 flex items-center justify-center'
       >
-        Login
+        {loadingState.get() && (
+          <CircularProgress size={25} className='text-white' />
+        )}
+        {!loadingState.get() && 'Login'}
       </button>
       <p className='mt-3 opacity-80'>
         Dont have an account ?{' '}
