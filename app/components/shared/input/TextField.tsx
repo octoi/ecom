@@ -1,4 +1,6 @@
 import React from 'react';
+import { TextField as TextInputField } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 interface Props {
   type?: React.HTMLInputTypeAttribute | undefined;
@@ -18,13 +20,27 @@ export const TextField: React.FC<Props> = ({
   required,
 }) => {
   return (
-    <input
-      type={type}
-      placeholder={placeholder}
-      className={`w-full mt-2 p-3 rounded outline-none text-xl border-2 focus:border-slate-900 ${className}`}
+    <StyledTextInputField
+      fullWidth
+      label={placeholder}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       required={required}
+      className={`mt-3 ${className}`}
     />
   );
 };
+
+const StyledTextInputField = styled(TextInputField)({
+  '& label.Mui-focused': {
+    color: '#0f172a',
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: '#0f172a ',
+  },
+  '& .MuiOutlinedInput-root': {
+    '&.Mui-focused fieldset': {
+      borderColor: '#0f172a',
+    },
+  },
+});
