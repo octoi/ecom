@@ -29,11 +29,10 @@ export const LoginForm = () => {
     })
       .then(({ data }) => {
         const responseData = data?.login;
-        console.log(responseData);
         setUser(responseData);
 
-        router.push(Paths.home);
         alert(`Welcome back ${responseData?.name} to Ecom`);
+        router.push(Paths.home);
       })
       .catch((err) => {
         alert(`Failed to login, ${err.message}`);
