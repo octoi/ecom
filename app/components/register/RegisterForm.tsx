@@ -8,12 +8,12 @@ export const RegisterForm = () => {
   const passwordState = useState('');
 
   return (
-    <div className='bg-slate-50 p-5 w-full md:w-1/2 lg:w-1/3'>
-      <h1 className='font-bold text-2xl'>Register</h1>
+    <div className='p-5 w-full md:w-1/2 lg:w-1/3'>
+      <h1 className='font-bold text-4xl'>Register</h1>
       <TextField
         type='text'
         placeholder='name'
-        className='mt-6'
+        className='mt-8'
         value={nameState.get()}
         onChange={nameState.set}
       />
@@ -30,7 +30,7 @@ export const RegisterForm = () => {
         onChange={passwordState.set}
       />
 
-      <p className='mt-3 opacity-80'>
+      <p className='mt-4 opacity-80'>
         By registering you agree you our{' '}
         <a
           href={Paths.terms}
@@ -40,7 +40,7 @@ export const RegisterForm = () => {
         </a>
       </p>
 
-      <button className='w-full mt-3 bg-slate-900 p-3 rounded text-white text-xl transition-all hover:opacity-80'>
+      <button className='w-full mt-3 bg-slate-900 p-3 rounded text-white text-xl transition-all hover:opacity-90'>
         Register
       </button>
 
