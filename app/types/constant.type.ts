@@ -8,4 +8,6 @@ export enum Paths {
   settings = '/account/settings',
   terms = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
   notFound = '/404',
+  newProduct = '/product/new',
+  chats = '/chats',
 }
