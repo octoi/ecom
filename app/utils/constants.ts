@@ -9,6 +9,7 @@ export enum Paths {
   newProduct = '/product/new',
   user = '/user', // add `/{userEmail}`
   chat = '/chat',
+  search = '/search',
   terms = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
   notFound = '/404',
 }

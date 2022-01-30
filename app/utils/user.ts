@@ -7,9 +7,6 @@ export const setUser = (userData: any) => {
 };
 
 export const logoutUser = () => {
-  const permission = window.confirm('Are you sure ?');
-  if (!permission) return;
-
   removeToken();
   userStore.set(null);
 };
