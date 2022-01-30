@@ -3,16 +3,17 @@ import { useRouter } from 'next/router';
 import { TextInput, Button, toaster } from 'evergreen-ui';
 import { useState } from '@hookstate/core';
 import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from './mutation';
+import { REGISTER_USER } from './mutation';
 import { setUser } from '@/utils/user';
 import { Paths } from '@/utils/constants';
 
-export const LoginForm: React.FC = () => {
+export const RegisterForm: React.FC = () => {
   const router = useRouter();
 
-  const [loginUser] = useMutation(LOGIN_USER);
+  const [registerUser] = useMutation(REGISTER_USER);
 
   const emailState = useState('');
+  const nameState = useState('');
   const passwordState = useState('');
   const loadingState = useState(false);
 
@@ -20,22 +21,25 @@ export const LoginForm: React.FC = () => {
     e.preventDefault();
     loadingState.set(true);
 
-    const loginData = {
+    const registerData = {
+      name: nameState.get(),
       email: emailState.get(),
       password: passwordState.get(),
+      profile: encodeURI(
+        `https://avatars.dicebear.com/api/identicon/${nameState.get()}.svg`
+      ),
     };
 
-    loginUser({ variables: loginData })
+    registerUser({ variables: registerData })
       .then(({ data }) => {
-        const responseData = data?.login;
+        const responseData = data?.register;
         setUser(responseData);
 
-        toaster.success(`Welcome back ${responseData?.name} to Ecom`, {
+        toaster.success(`Welcome ${responseData?.name} to Ecom`, {
           duration: 5,
         });
 
-        const route = router.query.next?.toString() || Paths.app;
-        router.push(route);
+        router.push(Paths.app);
       })
       .catch((err) => {
         toaster.danger('Oops something went wrong', {
@@ -44,6 +48,7 @@ export const LoginForm: React.FC = () => {
         });
       })
       .finally(() => {
+        nameState.set('');
         emailState.set('');
         passwordState.set('');
         loadingState.set(false);
@@ -52,7 +57,18 @@ export const LoginForm: React.FC = () => {
 
   return (
     <form onSubmit={handleFormSubmit}>
-      <h1 className='text-3xl font-bold mb-5'>Login</h1>
+      <h1 className='text-3xl font-bold mb-5'>Register</h1>
+      <TextInput
+        value={nameState.get()}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          nameState.set(e.target.value)
+        }
+        placeholder='name'
+        type='text'
+        size='large'
+        required
+      />
+      <br />
       <TextInput
         value={emailState.get()}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -60,6 +76,7 @@ export const LoginForm: React.FC = () => {
         }
         placeholder='email'
         type='email'
+        className='mt-2'
         size='large'
         required
       />
@@ -82,7 +99,7 @@ export const LoginForm: React.FC = () => {
         appearance='primary'
         isLoading={loadingState.get()}
       >
-        Login
+        Register
       </Button>
     </form>
   );
