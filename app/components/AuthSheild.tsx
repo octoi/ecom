@@ -5,7 +5,7 @@ import { useState } from '@hookstate/core';
 import { Paths } from '@/utils/constants';
 
 // `toString()` to get the inside value
-const nonLoggedInUserAllowedRoutes = [
+const guestUserAllowedRoutes = [
   Paths.app.toString(),
   Paths.login.toString(),
   Paths.register.toString(),
@@ -21,11 +21,8 @@ export const AuthShield: React.FC = ({ children }) => {
     const pathname = router.pathname;
 
     if (!user) {
-      if (nonLoggedInUserAllowedRoutes.includes(pathname)) return;
-      router.push(Paths.login);
-    } else {
-      if (!nonLoggedInUserAllowedRoutes.includes(pathname)) return;
-      router.push(Paths.app);
+      if (guestUserAllowedRoutes.includes(pathname)) return;
+      router.push(`${Paths.login.toString()}?next=${pathname}`);
     }
   }, [user, router]);
 
