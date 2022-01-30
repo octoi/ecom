@@ -1,6 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
 import { AuthShield } from './AuthSheild';
+import { Header } from './Header';
+import { Footer } from './Footer';
 
 interface Props {
   children: React.ReactNode;
@@ -27,7 +29,9 @@ export const Layout: React.FC<Props> = (props) => {
         <meta property='og:image' content={layoutData.image} />
         <meta property='og:type' content='website' />
       </Head>
+      <Header />
       <AuthShield>{props.children}</AuthShield>
+      <Footer />
     </div>
   );
 };
