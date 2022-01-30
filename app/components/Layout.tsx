@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import { AuthShield } from './AuthSheild';
-import { Header } from './Header';
+import { Header } from './header/Header';
 import { Footer } from './Footer';
 
 interface Props {
