@@ -1,6 +1,7 @@
 import React from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { TextInput, Button, toaster } from 'evergreen-ui';
+import { TextInput, Button, toaster, Text } from 'evergreen-ui';
 import { useState } from '@hookstate/core';
 import { useMutation } from '@apollo/client';
 import { REGISTER_USER } from './mutation';
@@ -26,7 +27,7 @@ export const RegisterForm: React.FC = () => {
       email: emailState.get(),
       password: passwordState.get(),
       profile: encodeURI(
-        `https://avatars.dicebear.com/api/identicon/${nameState.get()}.svg`
+        `https://avatars.dicebear.com/api/initials/${nameState.get()}.svg`
       ),
     };
 
@@ -65,6 +66,7 @@ export const RegisterForm: React.FC = () => {
         }
         placeholder='name'
         type='text'
+        className='!w-full'
         size='large'
         required
       />
@@ -76,7 +78,7 @@ export const RegisterForm: React.FC = () => {
         }
         placeholder='email'
         type='email'
-        className='mt-2'
+        className='!w-full mt-2'
         size='large'
         required
       />
@@ -88,7 +90,7 @@ export const RegisterForm: React.FC = () => {
         }
         placeholder='password'
         type='password'
-        className='mt-2'
+        className='!w-full mt-2'
         size='large'
         required
       />
@@ -101,6 +103,11 @@ export const RegisterForm: React.FC = () => {
       >
         Register
       </Button>
+      <Link href={Paths.login} passHref>
+        <Text className='mt-2 cursor-pointer' color='muted'>
+          Already have an account ? Login
+        </Text>
+      </Link>
     </form>
   );
 };

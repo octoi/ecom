@@ -1,6 +1,7 @@
 import React from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { TextInput, Button, toaster } from 'evergreen-ui';
+import { TextInput, Button, toaster, Text } from 'evergreen-ui';
 import { useState } from '@hookstate/core';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from './mutation';
@@ -60,6 +61,7 @@ export const LoginForm: React.FC = () => {
         }
         placeholder='email'
         type='email'
+        className='!w-full'
         size='large'
         required
       />
@@ -71,7 +73,7 @@ export const LoginForm: React.FC = () => {
         }
         placeholder='password'
         type='password'
-        className='mt-2'
+        className='!w-full mt-2'
         size='large'
         required
       />
@@ -84,6 +86,11 @@ export const LoginForm: React.FC = () => {
       >
         Login
       </Button>
+      <Link href={Paths.register} passHref>
+        <Text className='mt-2 cursor-pointer' color='muted'>
+          Dont have an account ? Register
+        </Text>
+      </Link>
     </form>
   );
 };
