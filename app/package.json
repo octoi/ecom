@@ -10,6 +10,7 @@
   "dependencies": {
     "@apollo/client": "^3.5.8",
     "@hookstate/core": "^3.0.13",
+    "graphql": "^16.3.0",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
     "next": "12.0.9",

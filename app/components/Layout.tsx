@@ -12,7 +12,7 @@ interface Props {
 export const Layout: React.FC<Props> = (props) => {
   const layoutData = {
     title: props.title || 'Ecom',
-    image: props.image || '/favicon.ico',
+    image: props.image || '/favicon.svg',
     description: props.description || 'Sell & Buy Products With Ecom',
   };
 
