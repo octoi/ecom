@@ -57,7 +57,10 @@ export const RegisterForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
+    <form
+      onSubmit={handleFormSubmit}
+      className='w-full p-3 m-3 md:w-1/2 lg:w-1/3'
+    >
       <h1 className='text-3xl font-bold mb-5'>Register</h1>
       <TextInput
         value={nameState.get()}
@@ -66,7 +69,7 @@ export const RegisterForm: React.FC = () => {
         }
         placeholder='name'
         type='text'
-        className='!w-full'
+        className='!w-full !h-12'
         size='large'
         required
       />
@@ -78,7 +81,7 @@ export const RegisterForm: React.FC = () => {
         }
         placeholder='email'
         type='email'
-        className='!w-full mt-2'
+        className='!w-full mt-2 !h-12'
         size='large'
         required
       />
@@ -90,13 +93,13 @@ export const RegisterForm: React.FC = () => {
         }
         placeholder='password'
         type='password'
-        className='!w-full mt-2'
+        className='!w-full mt-2 !h-12'
         size='large'
         required
       />
       <br />
       <Button
-        className='mt-2 w-full'
+        className='mt-2 w-full !h-12'
         size='large'
         appearance='primary'
         isLoading={loadingState.get()}
