@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useColorScheme } from '@mantine/hooks';
+import { NotificationsProvider } from '@mantine/notifications';
 import {
   MantineProvider,
   ColorSchemeProvider,
@@ -25,7 +26,7 @@ export const MantineWrapper: React.FC = ({ children }) => {
         withNormalizeCSS
         theme={{ colorScheme }}
       >
-        {children}
+        <NotificationsProvider>{children}</NotificationsProvider>
       </MantineProvider>
     </ColorSchemeProvider>
   );
