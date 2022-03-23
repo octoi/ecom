@@ -1,6 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
+import { AppShell } from '@mantine/core';
 import { AuthShield } from './AuthShield';
+import { Header } from './header';
 
 interface Props {
   title?: string;
@@ -29,7 +31,10 @@ export const Layout: React.FC<Props> = ({
         <meta property='og:image' content={image} />
         <meta property='og:type' content='website' />
       </Head>
-      <AuthShield>{children}</AuthShield>
+
+      <AppShell padding='md' header={<Header />}>
+        <AuthShield>{children}</AuthShield>
+      </AppShell>
     </>
   );
 };
