@@ -6,9 +6,14 @@ import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 interface Props {
   imageFiles: any[];
   setImageFiles: React.Dispatch<React.SetStateAction<any[]>>;
+  disabled?: boolean;
 }
 
-export const ImagePicker: React.FC<Props> = ({ imageFiles, setImageFiles }) => {
+export const ImagePicker: React.FC<Props> = ({
+  imageFiles,
+  setImageFiles,
+  disabled,
+}) => {
   const notifications = useNotifications();
 
   return (
@@ -21,6 +26,7 @@ export const ImagePicker: React.FC<Props> = ({ imageFiles, setImageFiles }) => {
           if (imageFiles.length >= 3) return;
           setImageFiles([...imageFiles, files[0]]);
         }}
+        disabled={disabled}
         onReject={(files) => {
           const errorMessage = files[0].errors[0].message;
 
