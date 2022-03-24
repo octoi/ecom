@@ -20,6 +20,8 @@ export const GuestUser = () => {
 
   return (
     <Menu
+      placement='end'
+      position='bottom'
       control={
         <ActionIcon
           size='lg'
