@@ -1,12 +1,13 @@
 import { Layout } from '@/components/Layout';
+import { NewProduct } from '@/components/newProduct';
 import type { NextPage } from 'next';
 
-const NewProduct: NextPage = () => {
+const NewProductPage: NextPage = () => {
   return (
     <Layout title='Sell' description='Lets sell your products with others'>
-      <div>New Product</div>
+      <NewProduct />
     </Layout>
   );
 };
 
-export default NewProduct;
+export default NewProductPage;

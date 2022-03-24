@@ -12,6 +12,7 @@
     "@apollo/client": "^3.5.10",
     "@hookstate/core": "^3.0.13",
     "@mantine/core": "^4.0.7",
+    "@mantine/dropzone": "^4.0.7",
     "@mantine/hooks": "^4.0.7",
     "@mantine/modals": "^4.0.7",
     "@mantine/next": "^4.0.7",
