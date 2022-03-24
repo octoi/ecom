@@ -4,16 +4,20 @@ import { Button, Modal, Text } from '@mantine/core';
 import { useModals } from '@mantine/modals';
 
 interface Props {
-  idx: number;
   file: any;
   deleteImage: () => void;
 }
 
-export const ImageViewer: React.FC<Props> = ({ idx, file, deleteImage }) => {
+const isValidUrl = (val: string) => {
+  const matchPattern = /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/;
+  return matchPattern.test(val);
+};
+
+export const ImageViewer: React.FC<Props> = ({ file, deleteImage }) => {
   const modals = useModals();
   const [opened, setOpened] = useState(false);
 
-  const image = URL.createObjectURL(file);
+  const image = isValidUrl(file) ? file : URL.createObjectURL(file);
 
   const askForImageDeletePermission = () => {
     setOpened(false);
