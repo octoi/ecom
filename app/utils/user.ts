@@ -9,6 +9,4 @@ export const setUser = (userData: any) => {
 export const logoutUser = () => {
   removeToken();
   userStore.set(null);
-
-  window.location.reload();
 };

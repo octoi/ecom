@@ -1,6 +1,7 @@
 import type { UserType } from '@/utils/types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Paths } from '@/utils/paths';
 import { logoutUser } from '@/utils/user';
 import { useModals } from '@mantine/modals';
@@ -37,8 +38,10 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export const LoggedInUser: React.FC<Props> = ({ user }) => {
-  const { classes } = useStyles();
   const modals = useModals();
+  const router = useRouter();
+
+  const { classes } = useStyles();
 
   const openLogoutModal = () =>
     modals.openConfirmModal({
@@ -52,7 +55,10 @@ export const LoggedInUser: React.FC<Props> = ({ user }) => {
       ),
       labels: { confirm: 'Logout', cancel: 'No, I want to stay' },
       confirmProps: { color: 'red' },
-      onConfirm: logoutUser,
+      onConfirm: () => {
+        logoutUser();
+        router.push(Paths.login);
+      },
     });
 
   return (
@@ -69,7 +75,7 @@ export const LoggedInUser: React.FC<Props> = ({ user }) => {
                 : theme.colors.gray[0],
           })}
         >
-          <Avatar src={user.profile} alt={user.name} size='xs' />
+          <Avatar src={user?.profile} alt={user?.name} size='xs' />
         </ActionIcon>
       }
     >

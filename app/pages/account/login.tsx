@@ -4,10 +4,7 @@ import { LoginForm } from '@/components/login/LoginForm';
 
 const Login: NextPage = () => {
   return (
-    <Layout
-      title='Register'
-      description='Register account on Ecom to sell & buy products'
-    >
+    <Layout title='Login' description='Login to Ecom to sell & buy products'>
       <LoginForm />
     </Layout>
   );

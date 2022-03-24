@@ -48,8 +48,8 @@ export const LoginForm = () => {
           color: 'teal',
         });
 
-        const route = router.query.next?.toString() || Paths.app;
-        router.push(route);
+        const nextPath = router.query?.next?.toString() || Paths.app;
+        router.push(nextPath);
       })
       .catch((err) => {
         notifications.showNotification({
