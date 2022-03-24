@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ImagePicker } from './ImagePicker';
 import { ImageViewer } from './ImageViewer';
 
 interface Props {
-  images: string[];
-  setImages: React.Dispatch<React.SetStateAction<string[]>>;
+  images: any[];
+  setImages: React.Dispatch<React.SetStateAction<any[]>>;
+  disabled?: boolean;
 }
 
-export const ProductImages: React.FC<Props> = () => {
-  const [rawImageFiles, setRawImageFiles] = useState<any[]>([]);
-
+export const ProductImages: React.FC<Props> = ({
+  images: rawImageFiles,
+  setImages: setRawImageFiles,
+  disabled,
+}) => {
   const deleteImage = (idx: number) => {
     const images = [...rawImageFiles];
     images.splice(idx, 1);
@@ -21,7 +24,6 @@ export const ProductImages: React.FC<Props> = () => {
       {rawImageFiles.map((file, idx) => (
         <ImageViewer
           key={idx}
-          idx={idx}
           file={file}
           deleteImage={() => deleteImage(idx)}
         />
@@ -30,6 +32,7 @@ export const ProductImages: React.FC<Props> = () => {
         <ImagePicker
           imageFiles={rawImageFiles}
           setImageFiles={setRawImageFiles}
+          disabled={disabled}
         />
       )}
     </div>
