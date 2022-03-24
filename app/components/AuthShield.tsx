@@ -5,8 +5,13 @@ import { useState } from '@hookstate/core';
 import { Paths } from '@/utils/paths';
 
 // `toString()` to get the inside value
-const guestUserAllowedRoutes = [
-  Paths.app.toString(),
+const guestUserDeniedRoutes = [
+  Paths.chat.toString(),
+  Paths.newProduct.toString(),
+  Paths.settings.toString(),
+];
+
+const loggedInUserDeniedRoutes = [
   Paths.login.toString(),
   Paths.register.toString(),
 ];
@@ -20,8 +25,13 @@ export const AuthShield: React.FC = ({ children }) => {
   useEffect(() => {
     const pathname = router.pathname;
 
+    if (user) {
+      if (!loggedInUserDeniedRoutes.includes(pathname)) return;
+      router.push(Paths.app);
+    }
+
     if (!user) {
-      if (guestUserAllowedRoutes.includes(pathname)) return;
+      if (!guestUserDeniedRoutes.includes(pathname)) return;
       router.push(`${Paths.login.toString()}?next=${pathname}`);
     }
   }, [user, router]);
