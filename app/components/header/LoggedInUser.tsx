@@ -1,5 +1,5 @@
 import type { UserType } from '@/utils/types';
-import React, { useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Paths } from '@/utils/paths';
@@ -15,7 +15,6 @@ import {
 } from '@mantine/core';
 import {
   Settings,
-  Search,
   ShoppingCartPlus,
   MessageCircle,
   Logout,
@@ -107,11 +106,6 @@ export const LoggedInUser: React.FC<Props> = ({ user }) => {
           icon={<ShoppingCartPlus size={14} />}
         >
           New product
-        </Menu.Item>
-      </Link>
-      <Link href={Paths.search} passHref>
-        <Menu.Item className={classes.hoverItem} icon={<Search size={14} />}>
-          Search
         </Menu.Item>
       </Link>
       <Divider />

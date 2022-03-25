@@ -1,24 +1,30 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { ApolloError } from '@apollo/client';
 import { ProductType } from '@/utils/types';
 import { Product } from './Product';
-import { appendData, productStore } from '@/state/product.state';
-import { GET_ALL_PRODUCTS } from './queries';
+import { appendData } from '@/state/product.state';
 import { Button } from '@mantine/core';
 
 interface Props {
   products: ProductType[];
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  loading: boolean;
+  error?: ApolloError;
+  refetch: any;
+  data: any;
 }
 
-export const Products: React.FC<Props> = ({ products }) => {
-  const [page, setPage] = useState(1);
+export const Products: React.FC<Props> = ({
+  products,
+  page,
+  setPage,
+  loading,
+  error,
+  refetch,
+  data,
+}) => {
   const [refetchLoading, setRefetchLoading] = useState(false);
-
-  const { loading, data, error, refetch } = useQuery(GET_ALL_PRODUCTS);
-
-  if (page === 1 && data) {
-    productStore.set(data.getAllProducts);
-  }
 
   return (
     <div>
@@ -38,7 +44,7 @@ export const Products: React.FC<Props> = ({ products }) => {
           onClick={() => {
             setRefetchLoading(true);
             refetch({ page: page + 1 })
-              .then((data) => {
+              .then((data: { data: { getAllProducts: ProductType[] } }) => {
                 appendData(data.data?.getAllProducts);
               })
               .finally(() => {
