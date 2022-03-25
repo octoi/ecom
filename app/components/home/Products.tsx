@@ -3,17 +3,18 @@ import { useQuery } from '@apollo/client';
 import { ProductType } from '@/utils/types';
 import { Product } from './Product';
 import { appendData, productStore } from '@/state/product.state';
-import { Downgraded } from '@hookstate/core';
 import { GET_ALL_PRODUCTS } from './queries';
 import { Button } from '@mantine/core';
 
-export const Products: React.FC = () => {
+interface Props {
+  products: ProductType[];
+}
+
+export const Products: React.FC<Props> = ({ products }) => {
   const [page, setPage] = useState(1);
   const [refetchLoading, setRefetchLoading] = useState(false);
 
   const { loading, data, error, refetch } = useQuery(GET_ALL_PRODUCTS);
-
-  const products = productStore.attach(Downgraded).get();
 
   if (page === 1 && data) {
     productStore.set(data.getAllProducts);
