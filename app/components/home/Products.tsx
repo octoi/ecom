@@ -1,17 +1,23 @@
-import React from 'react';
-import { ApolloError } from '@apollo/client';
+import React, { useState } from 'react';
+import { useQuery } from '@apollo/client';
 import { ProductType } from '@/utils/types';
 import { Product } from './Product';
-import { productStore } from '@/state/product.state';
+import { appendData, productStore } from '@/state/product.state';
 import { Downgraded } from '@hookstate/core';
+import { GET_ALL_PRODUCTS } from './queries';
+import { Button } from '@mantine/core';
 
-interface Props {
-  loading: boolean;
-  error?: ApolloError;
-}
+export const Products: React.FC = () => {
+  const [page, setPage] = useState(1);
+  const [refetchLoading, setRefetchLoading] = useState(false);
 
-export const Products: React.FC<Props> = ({ loading, error }) => {
+  const { loading, data, error, refetch } = useQuery(GET_ALL_PRODUCTS);
+
   const products = productStore.attach(Downgraded).get();
+
+  if (page === 1 && data) {
+    productStore.set(data.getAllProducts);
+  }
 
   return (
     <div>
@@ -22,6 +28,27 @@ export const Products: React.FC<Props> = ({ loading, error }) => {
           <Product key={product.id} product={product} />
         ))}
       </div>
+      {data && data.getAllProducts.length !== 0 && (
+        <Button
+          className='mt-5'
+          color='gray'
+          variant='outline'
+          loading={refetchLoading}
+          onClick={() => {
+            setRefetchLoading(true);
+            refetch({ page: page + 1 })
+              .then((data) => {
+                appendData(data.data?.getAllProducts);
+              })
+              .finally(() => {
+                setRefetchLoading(false);
+              });
+            setPage(page + 1);
+          }}
+        >
+          Load More
+        </Button>
+      )}
     </div>
   );
 };
