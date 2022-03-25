@@ -3,8 +3,10 @@ import { ProductType } from '@/utils/types';
 
 export const productStore = createState<ProductType[]>([]);
 
+export const getProductStoreItems = () => productStore.attach(Downgraded).get();
+
 export const appendData = (data: ProductType[]) => {
-  const recentData = productStore.attach(Downgraded).get();
+  const recentData = getProductStoreItems();
   const newData = [...recentData, ...data];
   productStore.set(newData);
 };
