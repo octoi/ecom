@@ -4,6 +4,7 @@ export enum Paths {
   app = '/',
   settings = '/account/settings',
   newProduct = '/product/new',
+  product = '/product', // add `/{productID}`
   user = '/user', // add `/{userEmail}`
   chat = '/chat',
   search = '/search',
