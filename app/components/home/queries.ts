@@ -5,7 +5,6 @@ export const GET_ALL_PRODUCTS = gql`
     getAllProducts(page: $page) {
       id
       title
-      description
       images
       price
       place
@@ -24,7 +23,6 @@ export const SEARCH_PRODUCT = gql`
     searchProduct(query: $query) {
       id
       title
-      description
       images
       price
       place
