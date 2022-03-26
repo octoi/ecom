@@ -84,10 +84,6 @@ export const NewProduct: React.FC = () => {
         });
       })
       .finally(() => {
-        setTitle('');
-        setDescription('');
-        setPlace('');
-        setPrice(0);
         setLoading(false);
       });
   };
