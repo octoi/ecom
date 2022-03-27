@@ -24,7 +24,7 @@ export const uploadImages = (images: any[]) => {
   });
 };
 
-const uploadAnImage = (image: any) => {
+export const uploadAnImage = (image: any) => {
   return new Promise((resolve, reject) => {
     const data = new FormData();
     data.append('file', image);
