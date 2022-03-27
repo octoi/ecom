@@ -29,10 +29,20 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   const client = getApolloClient();
 
-  const responseData = await client.query({
-    query: GET_ONE_PRODUCT,
-    variables: { productId },
-  });
+  const responseData: any = await client
+    .query({
+      query: GET_ONE_PRODUCT,
+      variables: { productId },
+    })
+    .catch(() => {
+      return {
+        redirect: {
+          destination: Paths.notFound,
+          permanent: false,
+        },
+        props: {},
+      };
+    });
 
   const productData = responseData.data?.getOneProduct;
 
