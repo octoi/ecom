@@ -9,7 +9,7 @@ interface Props {
   products: ProductType[];
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
-  loading: boolean;
+  loading?: boolean;
   error?: ApolloError;
   refetch: any;
   data: any;
@@ -35,7 +35,7 @@ export const Products: React.FC<Props> = ({
           <Product key={product.id} product={product} />
         ))}
       </div>
-      {data && data.getAllProducts.length !== 0 && (
+      {data && data?.getAllProducts?.length !== 0 && (
         <Button
           className='mt-5'
           color='gray'
@@ -44,7 +44,7 @@ export const Products: React.FC<Props> = ({
           onClick={() => {
             setRefetchLoading(true);
             refetch({ page: page + 1 })
-              .then((data: { data: { getAllProducts: ProductType[] } }) => {
+              .then((data: any) => {
                 appendData(data.data?.getAllProducts);
               })
               .finally(() => {
