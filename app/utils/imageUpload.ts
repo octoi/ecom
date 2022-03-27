@@ -8,8 +8,8 @@ export const uploadImages = (images: any[]) => {
 
     images.forEach((image, idx) => {
       uploadAnImage(image)
-        .then((path: any) => {
-          imageURLS.push(FILE_API_ENDPOINT + path);
+        .then((url: any) => {
+          imageURLS.push(url);
 
           // return data if all images are uploaded
           if (idx === images.length - 1) {
@@ -37,7 +37,10 @@ export const uploadAnImage = (image: any) => {
       },
     })
       .then((res) => {
-        res.json().then(resolve).catch(reject);
+        res
+          .json()
+          .then((path) => resolve(FILE_API_ENDPOINT + path))
+          .catch(reject);
       })
       .catch(reject);
   });
