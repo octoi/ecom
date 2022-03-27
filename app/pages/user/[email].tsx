@@ -1,38 +1,40 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import { Layout } from '@/components/Layout';
 import { getApolloClient } from '@/utils/apollo';
-import { GET_ONE_PRODUCT } from '@/components/productDetail/query';
+import { UserType } from '@/utils/types';
+import { GET_USER_DETAILS } from '@/components/userDetail/query';
 import { Paths } from '@/utils/paths';
-import { ProductType } from '@/utils/types';
-import { ProductDetail } from '@/components/productDetail';
+import { UserProfile } from '@/components/userDetail/UserProfile';
+import { UserProducts } from '@/components/userDetail/UserProducts';
 
 interface Props {
-  product: ProductType;
+  user: UserType;
 }
 
-const ProductDetailPage: NextPage<Props> = ({ product }) => {
+const UserDetailPage: NextPage<Props> = ({ user }) => {
   return (
     <Layout
-      title={product.title}
-      description={product.description}
-      image={product.images[0]}
+      title={user.name}
+      image={user.profile}
+      description={`view profile of ${user.name}`}
     >
-      <ProductDetail product={product} />
+      <UserProfile user={user} />
+      <UserProducts email={user.email} />
     </Layout>
   );
 };
 
-export default ProductDetailPage;
+export default UserDetailPage;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const productId = params?.productId;
+  const userEmail = params?.email;
 
   const client = getApolloClient();
 
   const responseData: any = await client
     .query({
-      query: GET_ONE_PRODUCT,
-      variables: { productId },
+      query: GET_USER_DETAILS,
+      variables: { email: userEmail },
     })
     .catch(() => {
       return {
@@ -44,9 +46,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       };
     });
 
-  const productData = responseData.data?.getOneProduct;
+  const userData = responseData.data?.getUserDetails;
 
-  if (!productData) {
+  if (!userData) {
     return {
       redirect: {
         destination: Paths.notFound,
@@ -58,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   return {
     props: {
-      product: productData,
+      user: userData,
     },
   };
 };

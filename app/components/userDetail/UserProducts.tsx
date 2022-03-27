@@ -1,33 +1,31 @@
-import React, { useState } from 'react';
-import { ApolloError } from '@apollo/client';
+import React, { useEffect, useState } from 'react';
 import { ProductType } from '@/utils/types';
-import { Product } from './Product';
-import { appendData } from '@/state/product.state';
+import { useQuery } from '@apollo/client';
+import { GET_USER_PRODUCTS } from './query';
+import { Product } from '../home/Product';
 import { Button } from '@mantine/core';
 
 interface Props {
-  products: ProductType[];
-  page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  loading?: boolean;
-  error?: ApolloError;
-  refetch: any;
-  data: any;
+  email: string;
 }
 
-export const Products: React.FC<Props> = ({
-  products,
-  page,
-  setPage,
-  loading,
-  error,
-  refetch,
-  data,
-}) => {
+export const UserProducts: React.FC<Props> = ({ email }) => {
+  const [page, setPage] = useState(1);
   const [refetchLoading, setRefetchLoading] = useState(false);
+  const [products, setProducts] = useState<ProductType[]>([]);
+
+  const { loading, data, error, refetch } = useQuery(GET_USER_PRODUCTS, {
+    variables: { email, page },
+  });
+
+  useEffect(() => {
+    if (page === 1 && data) {
+      setProducts(data.getAllUserProducts);
+    }
+  }, [data, page]);
 
   return (
-    <div>
+    <div className='mt-5'>
       {loading && <p>Loading...</p>}
       {error && <p className='text-red-400'>{error?.message}</p>}
       <div className='grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
@@ -35,7 +33,7 @@ export const Products: React.FC<Props> = ({
           <Product key={product.id} product={product} />
         ))}
       </div>
-      {data && data?.getAllProducts?.length !== 0 && (
+      {data && data?.getAllUserProducts?.length !== 0 && (
         <Button
           className='mt-5'
           color='gray'
@@ -45,7 +43,11 @@ export const Products: React.FC<Props> = ({
             setRefetchLoading(true);
             refetch({ page: page + 1 })
               .then((data: any) => {
-                appendData(data.data?.getAllProducts);
+                const responseProducts = data.data?.getAllProducts;
+                if (responseProducts) {
+                  const allProducts = [...products, ...responseProducts];
+                  setProducts(allProducts);
+                }
               })
               .finally(() => {
                 setRefetchLoading(false);
