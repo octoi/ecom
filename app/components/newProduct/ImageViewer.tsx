@@ -2,16 +2,12 @@
 import React, { useState } from 'react';
 import { Button, Modal, Text } from '@mantine/core';
 import { useModals } from '@mantine/modals';
+import { isValidUrl } from '@/utils/url';
 
 interface Props {
   file: any;
   deleteImage: () => void;
 }
-
-const isValidUrl = (val: string) => {
-  const matchPattern = /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/;
-  return matchPattern.test(val);
-};
 
 export const ImageViewer: React.FC<Props> = ({ file, deleteImage }) => {
   const modals = useModals();

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNotifications } from '@mantine/notifications';
-import { uploadImages } from './imageUpload';
+import { uploadImages } from '../../utils/imageUpload';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
 import { Paths } from '@/utils/paths';
