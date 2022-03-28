@@ -1,7 +1,17 @@
 import React from 'react';
 import { upperFirst } from '@mantine/hooks';
 import { UserType } from '@/utils/types';
-import { Avatar, Center, Text, Title, useMantineTheme } from '@mantine/core';
+import { getUserData } from '@/state/user.state';
+import {
+  Avatar,
+  Button,
+  Center,
+  Text,
+  Title,
+  useMantineTheme,
+} from '@mantine/core';
+import Link from 'next/link';
+import { Paths } from '@/utils/paths';
 
 interface Props {
   user: UserType;
@@ -9,6 +19,8 @@ interface Props {
 
 export const UserProfile: React.FC<Props> = ({ user }) => {
   const theme = useMantineTheme();
+
+  const loggedInUser = getUserData();
 
   const secondaryColor =
     theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7];
@@ -27,6 +39,13 @@ export const UserProfile: React.FC<Props> = ({ user }) => {
       <Text size='lg' style={{ color: secondaryColor }} className='mt-2'>
         {user.email}
       </Text>
+      {loggedInUser && loggedInUser.email !== user.email && (
+        <Link passHref href={Paths.chat + '/' + user.email}>
+          <Button className='mt-2' variant='outline' color='indigo'>
+            Message
+          </Button>
+        </Link>
+      )}
     </Center>
   );
 };
