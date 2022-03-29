@@ -17,7 +17,7 @@ export interface ProductType {
 }
 
 export interface ChatType {
-  id?: string;
+  id: string;
   messages?: MessageType[];
   senderId?: number;
   receiverId?: number;

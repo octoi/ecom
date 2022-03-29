@@ -11,6 +11,7 @@ export const GET_TARGET_USER_DATA = gql`
 export const GET_CHAT = gql`
   query ($chatId: String) {
     getChat(chatId: $chatId) {
+      id
       senderId
       receiverId
       sender {
