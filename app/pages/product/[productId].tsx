@@ -2,9 +2,9 @@ import type { GetServerSideProps, NextPage } from 'next';
 import { Layout } from '@/components/Layout';
 import { getApolloClient } from '@/utils/apollo';
 import { GET_ONE_PRODUCT } from '@/components/productDetail/query';
-import { Paths } from '@/utils/paths';
 import { ProductType } from '@/utils/types';
 import { ProductDetail } from '@/components/productDetail';
+import { GSSPRedirectData } from '@/utils/constants';
 
 interface Props {
   product: ProductType;
@@ -35,26 +35,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       variables: { productId },
     })
     .catch(() => {
-      return {
-        redirect: {
-          destination: Paths.notFound,
-          permanent: false,
-        },
-        props: {},
-      };
+      return GSSPRedirectData;
     });
 
   const productData = responseData.data?.getOneProduct;
 
-  if (!productData) {
-    return {
-      redirect: {
-        destination: Paths.notFound,
-        permanent: false,
-      },
-      props: {},
-    };
-  }
+  if (!productData) return GSSPRedirectData;
 
   return {
     props: {

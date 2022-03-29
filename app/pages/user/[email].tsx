@@ -3,9 +3,9 @@ import { Layout } from '@/components/Layout';
 import { getApolloClient } from '@/utils/apollo';
 import { UserType } from '@/utils/types';
 import { GET_USER_DETAILS } from '@/components/userDetail/query';
-import { Paths } from '@/utils/paths';
 import { UserProfile } from '@/components/userDetail/UserProfile';
 import { UserProducts } from '@/components/userDetail/UserProducts';
+import { GSSPRedirectData } from '@/utils/constants';
 
 interface Props {
   user: UserType;
@@ -37,26 +37,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       variables: { email: userEmail },
     })
     .catch(() => {
-      return {
-        redirect: {
-          destination: Paths.notFound,
-          permanent: false,
-        },
-        props: {},
-      };
+      return GSSPRedirectData;
     });
 
   const userData = responseData.data?.getUserDetails;
 
-  if (!userData) {
-    return {
-      redirect: {
-        destination: Paths.notFound,
-        permanent: false,
-      },
-      props: {},
-    };
-  }
+  if (!userData) return GSSPRedirectData;
 
   return {
     props: {

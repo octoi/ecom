@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button, Modal, Text } from '@mantine/core';
 import { useModals } from '@mantine/modals';
-import { isValidUrl } from '@/utils/url';
+import { isValidUrl } from '@/utils/helper';
 
 interface Props {
   file: any;
