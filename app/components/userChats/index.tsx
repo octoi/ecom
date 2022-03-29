@@ -38,8 +38,8 @@ export const UserChats = () => {
             {chats.map((chat) => {
               const targetUser =
                 chat?.sender?.email === loggedInUser?.email
-                  ? chat.sender
-                  : chat.receiver;
+                  ? chat.receiver
+                  : chat.sender;
 
               return (
                 <Link
