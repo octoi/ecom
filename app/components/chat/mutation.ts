@@ -33,3 +33,11 @@ export const DELETE_CHAT = gql`
     deleteChat(chatId: $chatId)
   }
 `;
+
+export const NEW_MESSAGE = gql`
+  mutation ($chatId: String, $message: String) {
+    newMessage(chatId: $chatId, message: $message) {
+      id
+    }
+  }
+`;
