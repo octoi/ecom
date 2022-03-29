@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Paths } from '@/utils/paths';
 import { getUserData } from '@/state/user.state';
+import { ChatComponent } from '@/components/chat';
 
 interface Props {
   chat?: ChatType;
@@ -28,13 +29,24 @@ const ChatPage: NextPage<Props> = ({ chat: responseChat, targetUserId }) => {
     newChat({ variables: { targetUserId } })
       .then(({ data }) => setChat(data?.newChat))
       .catch(() => router.push(Paths.notFound));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loggedInUser = getUserData();
   const targetUser =
     chat?.sender?.email === loggedInUser?.email ? chat?.receiver : chat?.sender;
 
-  return <Layout title={targetUser?.name || 'Loading..'}></Layout>;
+  return (
+    <Layout
+      title={targetUser?.name || 'Loading..'}
+      image={targetUser?.profile}
+      description={targetUser?.email}
+    >
+      {chat && targetUser && (
+        <ChatComponent chat={chat} targetUser={targetUser} />
+      )}
+    </Layout>
+  );
 };
 
 export default ChatPage;

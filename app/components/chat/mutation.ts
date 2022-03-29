@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 export const NEW_CHAT = gql`
   mutation ($targetUserId: Int) {
     newChat(targetUserId: $targetUserId) {
+      id
       senderId
       receiverId
       sender {
@@ -24,5 +25,11 @@ export const NEW_CHAT = gql`
         senderId
       }
     }
+  }
+`;
+
+export const DELETE_CHAT = gql`
+  mutation ($chatId: String) {
+    deleteChat(chatId: $chatId)
   }
 `;
