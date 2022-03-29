@@ -34,6 +34,10 @@ export const newChatController = async (
   loggedInUserId: number,
   targetUserId: number
 ) => {
+  if (loggedInUserId === targetUserId) {
+    throw new UserInputError("You can't message yourself");
+  }
+
   const chat = await newChat(loggedInUserId, targetUserId).catch((err) => {
     throw new UserInputError(err);
   });
