@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Avatar, Center } from '@mantine/core';
-import { isValidUrl } from '@/utils/url';
+import { isValidUrl } from '@/utils/helper';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { useNotifications } from '@mantine/notifications';
 
