@@ -9,6 +9,7 @@ const guestUserDeniedRoutes = [
   Paths.chat.toString(),
   Paths.newProduct.toString(),
   Paths.settings.toString(),
+  Paths.chat,
 ];
 
 const loggedInUserDeniedRoutes = [
