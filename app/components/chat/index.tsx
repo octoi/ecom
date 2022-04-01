@@ -1,5 +1,6 @@
 import { ChatType, UserType } from '@/utils/types';
 import React from 'react';
+import { Messages } from './Messages';
 import { ChatHeader } from './ChatHeader';
 import { MessageBox } from './MessageBox';
 
@@ -13,6 +14,7 @@ export const ChatComponent: React.FC<Props> = ({ chat, targetUser }) => {
     <div>
       <ChatHeader chatId={chat.id} targetUser={targetUser} />
       <MessageBox chatId={chat.id} />
+      <Messages chat={chat} />
     </div>
   );
 };
