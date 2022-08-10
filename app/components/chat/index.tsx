@@ -1,5 +1,5 @@
-import { ChatType, UserType } from '@/utils/types';
 import React from 'react';
+import { ChatType, UserType } from '@/utils/types';
 import { Messages } from './Messages';
 import { ChatHeader } from './ChatHeader';
 import { MessageBox } from './MessageBox';
