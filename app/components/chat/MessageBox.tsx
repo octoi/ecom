@@ -26,7 +26,7 @@ export const MessageBox: React.FC<Props> = ({ chatId }) => {
       .then(() => setMessage(''))
       .catch((err) => {
         notifications.showNotification({
-          title: 'Failed to delete chat',
+          title: 'Failed to send message',
           message: err?.message,
           autoClose: 3000,
           color: 'red',
@@ -42,6 +42,8 @@ export const MessageBox: React.FC<Props> = ({ chatId }) => {
         variant='filled'
         size='lg'
         type='text'
+        autoFocus
+        autoComplete='off'
         required
         className='w-full'
         value={message}

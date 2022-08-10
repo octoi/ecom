@@ -30,29 +30,31 @@ export const getApolloClient = () => {
     uri: process.env.GRAPHQL_ENDPOINT || GRAPHQL_ENDPOINT,
   });
 
-  const wsLink = process.browser
-    ? new GraphQLWsLink(
-        createClient({
-          url:
-            process.env.GRAPHQL_SUBSCRIPTION_ENDPOINT ||
-            GRAPHQL_SUBSCRIPTION_ENDPOINT,
-        })
-      )
-    : null;
+  const wsLink =
+    typeof window !== 'undefined'
+      ? new GraphQLWsLink(
+          createClient({
+            url:
+              process.env.GRAPHQL_SUBSCRIPTION_ENDPOINT ||
+              GRAPHQL_SUBSCRIPTION_ENDPOINT,
+          })
+        )
+      : null;
 
-  const link = wsLink
-    ? split(
-        ({ query }) => {
-          const definition = getMainDefinition(query);
-          return (
-            definition.kind === 'OperationDefinition' &&
-            definition.operation === 'subscription'
-          );
-        },
-        wsLink,
-        httpLink
-      )
-    : httpLink;
+  const link =
+    typeof window !== 'undefined' && wsLink != null
+      ? split(
+          ({ query }) => {
+            const definition = getMainDefinition(query);
+            return (
+              definition.kind === 'OperationDefinition' &&
+              definition.operation === 'subscription'
+            );
+          },
+          wsLink,
+          httpLink
+        )
+      : httpLink;
 
   const apolloAppClient = new ApolloClient({
     link: authLink.concat(link),

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useColorScheme } from '@mantine/hooks';
+import React from 'react';
+import { useColorScheme, useLocalStorage } from '@mantine/hooks';
 import { NotificationsProvider } from '@mantine/notifications';
 import { ModalsProvider } from '@mantine/modals';
 import {
@@ -11,8 +11,11 @@ import {
 export const MantineWrapper: React.FC = ({ children }) => {
   const systemColorScheme = useColorScheme(); // get system colorscheme (`dark` || `light`)
 
-  const [colorScheme, setColorScheme] =
-    useState<ColorScheme>(systemColorScheme);
+  const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
+    key: 'mantine-color-scheme',
+    defaultValue: systemColorScheme,
+    getInitialValueInEffect: true,
+  });
 
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
