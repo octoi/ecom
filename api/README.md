@@ -4,43 +4,30 @@ Backend server code for **ECOM** .
 
 This is made using `NODE JS`, `GRAPHQL`, & `PRISMA`.
 
-## API DOCS 📖
+## Setup
+1 - Install dependencies
+```bash
+$ npm install
+## Or yarn
+$ yarn install
+```
+2 - Prisma migrate
+```bash
+$ npm run migrate
+## Or using yarn
+$ yarn migrate
+```
+3 - Run app
+```bash
+## Run with nodemon
 
-Documentation for using this API.
+$ npm run dev
+## Or using yarn
+$ yarn dev
 
-### Authentication
+## Run without nodemon
 
-1. REGISTER
-   ```graphql
-   mutation (
-     $name: String
-     $email: String
-     $profile: String
-     $password: String
-   ) {
-     register(
-       name: $name
-       email: $email
-       profile: $profile
-       password: $password
-     ) {
-       id
-       name
-       email
-       profile
-       token
-     }
-   }
-   ```
-2. LOGIN
-   ```graphql
-   mutation ($email: String, $password: String) {
-     login(email: $email, password: $password) {
-       id
-       name
-       email
-       profile
-       token
-     }
-   }
-   ```
+$ npm run start
+## Or using yarn
+$ yarn start
+```
