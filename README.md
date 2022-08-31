@@ -10,6 +10,6 @@ An Ecommerce app inspired from [OLX](http://olx.in/).
 | file-api | A file upload api using Rust |
 
 ## Setup
-1. [aoi](./api/READNE.md)
+1. [api](./api/README.md)
 2. [app](./app/README.md)
 3. [file-api](./file-api/README.md)
