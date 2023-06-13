@@ -2,6 +2,12 @@
 
 An Ecommerce app inspired from [OLX](http://olx.in/).
 
+## Features
+- Users can add product
+- Manage products
+- View product details
+- Chat with product owners
+
 ## Folder structure
 | Folder name      | What is it ? |
 | ----------- | ----------- |
