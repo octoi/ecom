@@ -9,13 +9,13 @@ This is made using `NODE JS`, `GRAPHQL`, & `PRISMA`.
 ```bash
 $ npm install
 ## Or yarn
-$ yarn install
+$ pnpm install
 ```
 2 - Prisma migrate
 ```bash
 $ npm run migrate
 ## Or using yarn
-$ yarn migrate
+$ pnpm migrate
 ```
 3 - Run app
 ```bash
@@ -23,11 +23,11 @@ $ yarn migrate
 
 $ npm run dev
 ## Or using yarn
-$ yarn dev
+$ pnpm dev
 
 ## Run without nodemon
 
 $ npm run start
 ## Or using yarn
-$ yarn start
+$ pnpm start
 ```
